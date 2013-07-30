@@ -1,0 +1,7 @@
+parameters:
+#    fm_payment_paymill.example.class: Fm\PaymentPaymillBundle\Example
+
+services:
+#    fm_payment_paymill.example:
+#        class: %fm_payment_paymill.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

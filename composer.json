@@ -1,0 +1,23 @@
+{
+    "name": "fitmemes/payment-paymill-bundle",
+    "type": "symfony-bundle",
+    "description": "A Paymill provider for JMSPaymentCoreBundle",
+    "keywords": ["payment", "paymill"],
+    "homepage": "https://github.com/fitmemes/FmPaymentPaymillBundle",
+    "license": "Apache",
+    "authors": [
+        {
+            "name": "Paulo Rodrigues Pinto",
+            "email": "regularjack@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": ">=2.0,<2.2-dev",
+        "jms/payment-core-bundle": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "Fm\\PaymentPaymillBundle": "" }
+    },
+    "target-dir": "Fm/PaymentPaymillBundle"
+}
