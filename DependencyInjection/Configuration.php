@@ -19,6 +19,10 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('api_private_key')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('api_public_key')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode('initialize_template')
+                        ->cannotBeEmpty()
+                        ->defaultValue('FmPaymentPaymillBundle::init.html.twig')
+                    ->end()
                 ->end()
             ->end();
 

@@ -1,0 +1,58 @@
+<?php
+
+namespace Fm\PaymentPaymillBundle\Templating;
+
+use \Twig_Extension as TwigExtension;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+class PaymillExtension extends TwigExtension
+{
+    private $publicKey;
+    private $container;
+
+    public function __construct (ContainerInterface $container, $publicKey)
+    {
+        $this->container = $container;
+        $this->publicKey = $publicKey;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getGlobals ()
+    {
+        return array('paymill' => array(
+            'public_key' => $this->publicKey
+        ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFunctions ()
+    {
+        return array(
+            'paymill_initialize' => new \Twig_Function_Method(
+                $this, 'renderInitialize', array('is_safe' => array('html'))
+            ),
+        );
+    }
+
+    /**
+     * Render the Paymill initialization markup.
+     *
+     * @return string
+     */
+    public function renderInitialize ()
+    {
+        return $this->container->get('fm_payment_paymill.helper')->initialize();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName ()
+    {
+        return 'paymill';
+    }
+}

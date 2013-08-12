@@ -13,23 +13,35 @@ class PaymillPlugin extends AbstractPlugin
 {
     private $api;
 
-    public function __construct ($apiPrivateKey)
+    public function __construct ($privateKey)
     {
-        $this->api = new PaymillApi($apiPrivateKey);
+        $this->api = new PaymillApi($privateKey);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function approveAndDeposit (FinancialTransactionInterface $transaction, $retry)
     {
-        $data   = $transaction->getExtendedData();
-        $client = $this->api->getClient($data->get('client'));
+        try {
+            $data   = $transaction->getExtendedData();
+            $client = $this->api->getClient($data->get('client'));
 
-        $response = $this->api->createTransaction(
-            $client,
-            $data->get('token'),
-            $transaction->getRequestedAmount() * 100, // in cents
-            $transaction->getPayment()->getPaymentInstruction()->getCurrency(),
-            $data->get('description')
-        );
+            $response = $this->api->createTransaction(
+                $client,
+                $data->get('token'),
+                $transaction->getRequestedAmount() * 100, // in cents
+                $transaction->getPayment()->getPaymentInstruction()->getCurrency(),
+                $data->get('description')
+            );
+
+        } catch (PaymillException $e) {
+            $ex = new FinancialException($e->getMessage());
+            $ex->setFinancialTransaction($transaction);
+            $transaction->setResponseCode($e->getResponseCode());
+            $transaction->setReasonCode($e->getStatusCode());
+            throw $ex;
+        }
 
         $id     = $response['id'];
         $status = $response['status'];
@@ -37,28 +49,29 @@ class PaymillPlugin extends AbstractPlugin
 
         switch ($status) {
             case 'closed':
+                $transaction->setReferenceNumber($id);
+                $transaction->setProcessedAmount($amount);
+                $transaction->setResponseCode(PluginInterface::RESPONSE_CODE_SUCCESS);
+                $transaction->setReasonCode(PluginInterface::REASON_CODE_SUCCESS);
                 break;
 
             case 'open':
             case 'pending':
                 $transaction->setReferenceNumber($id);
                 throw new PaymentPendingException('Payment is still pending');
-                break;
 
             default:
                 $ex = new FinancialException('Transaction is not closed: '.$status);
                 $ex->setFinancialTransaction($transaction);
                 $transaction->setResponseCode('Failed');
                 $transaction->setReasonCode($status);
-                break;
+                throw $ex;
         }
-
-        $transaction->setReferenceNumber($id);
-        $transaction->setProcessedAmount($amount);
-        $transaction->setResponseCode(PluginInterface::RESPONSE_CODE_SUCCESS);
-        $transaction->setReasonCode(PluginInterface::REASON_CODE_SUCCESS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function processes ($name)
     {
         return 'paymill' === $name;

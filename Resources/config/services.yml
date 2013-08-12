@@ -10,3 +10,15 @@ services:
         tags:
             - { name: payment.method_form_type }
             - { name: form.type, alias: paymill }
+
+    fm_payment_paymill.extension:
+      class: Fm\PaymentPaymillBundle\Templating\PaymillExtension
+      arguments: [@service_container, %fm_payment_paymill.api_public_key%]
+      tags:
+        - { name: twig.extension }
+
+    fm_payment_paymill.helper:
+      class: Fm\PaymentPaymillBundle\Templating\PaymillHelper
+      arguments: [@templating, %fm_payment_paymill.initialize_template%]
+      tags:
+        - { name: templating.helper }

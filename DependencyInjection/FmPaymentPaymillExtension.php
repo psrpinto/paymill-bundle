@@ -22,5 +22,6 @@ class FmPaymentPaymillExtension extends Extension
 
         $container->setParameter('fm_payment_paymill.api_private_key', $config['api_private_key']);
         $container->setParameter('fm_payment_paymill.api_public_key', $config['api_public_key']);
+        $container->setParameter('fm_payment_paymill.initialize_template', $config['initialize_template']);
     }
 }

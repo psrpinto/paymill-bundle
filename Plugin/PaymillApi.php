@@ -1,4 +1,4 @@
-<?
+<?php
 
 namespace Fm\PaymentPaymillBundle\Plugin;
 
@@ -25,6 +25,7 @@ class PaymillApi
      *
      * @param array $data Array containing a mandatory 'email' key and an
      *                    optional 'description' key.
+     * @throws PaymillException If a request failed
      */
     public function getClient ($data)
     {
@@ -70,14 +71,16 @@ class PaymillApi
      * @param  integer $amount      Amount (in cents) which will be charged
      * @param  string  $currency    ISO 4217 formatted currency code
      * @param  string  $description A short description for the transaction (optional)
+     *
      * @return array Created transaction
+     * @throws PaymillException If the request failed
      */
     public function createTransaction ($client, $token, $amount, $currency, $description = null)
     {
         $this->checkResponse(
             $transaction = $this->transactions->create(array(
                 'client'      => $client !== null ? $client['id'] : null,
-                'token'       => $client !== null ? null : $token,
+                'token'       => $token,
                 'amount'      => $amount,
                 'currency'    => $currency,
                 'description' => $description
@@ -91,6 +94,7 @@ class PaymillApi
      * Throw an exception if a request failed.
      *
      * @param array $response Response to the request
+     * @throws PaymillException If the request failed
      */
     private function checkResponse ($response)
     {
@@ -98,29 +102,6 @@ class PaymillApi
             return;
         }
 
-        $error   = $response['error'];
-        $message = "API request failed";
-
-        if (isset($error['messages']) && is_array($error['messages'])
-                && !empty($error['messages'])) {
-            foreach ($error['messages'] as $key => $value) {
-                 $message .= ' - '.$value;
-                 break;
-            }
-
-            if (isset($error['field'])) {
-                $message .= ': "'.$error['field'].'"';
-            }
-        }
-
-        if (isset($response['response_code']) && !empty($response['response_code'])) {
-            $message .= ' [response code = '.$response['response_code'].']';
-        }
-
-        if (isset($response['http_status_code'])) {
-            $message .= ' [HTTP status code = '.$response['http_status_code'].']';
-        }
-
-        throw new \Exception($message);
+        throw new PaymillException($response);
     }
 }
