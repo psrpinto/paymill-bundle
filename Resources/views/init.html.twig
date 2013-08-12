@@ -1,0 +1,13 @@
+{% spaceless %}
+
+<script type="text/javascript">
+  var PAYMILL_PUBLIC_KEY = '84252317458aebd9e7b5bc958da46263';
+</script>
+
+<script src="https://bridge.paymill.com/"></script>
+
+{% javascripts '@FmPaymentPaymillBundle/Resources/assets/js/FmPaymentPaymill.js' %}
+  <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{% endspaceless %}

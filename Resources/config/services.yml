@@ -1,7 +1,12 @@
-parameters:
-#    fm_payment_paymill.example.class: Fm\PaymentPaymillBundle\Example
-
 services:
-#    fm_payment_paymill.example:
-#        class: %fm_payment_paymill.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    fm_payment_paymill.plugin:
+       class: Fm\PaymentPaymillBundle\Plugin\PaymillPlugin
+       arguments: [%fm_payment_paymill.api_private_key%]
+       tags:
+            - { name: payment.plugin }
+
+    fm_payment_paymill.paymill_type:
+        class: Fm\PaymentPaymillBundle\Form\PaymillType
+        tags:
+            - { name: payment.method_form_type }
+            - { name: form.type, alias: paymill }

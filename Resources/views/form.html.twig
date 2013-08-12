@@ -1,0 +1,24 @@
+{#% block _jms_choose_payment_method_method_row %}
+    {# do not render the radio button for payment methods #}
+{#% endblock %#}
+
+{% block _jms_choose_payment_method_data_paymill_row %}
+  {# do not render the label "Paymill" #}
+  {{ form_widget(form) }}
+{% endblock %}
+
+{% block _jms_choose_payment_method_data_paymill_number_widget %}
+  <input type="text" id="jms_choose_payment_method_data_paymill_number" value="4111111111111111"/>
+{% endblock %}
+
+{% block _jms_choose_payment_method_data_paymill_expires_widget %}
+  <input type="text" id="jms_choose_payment_method_data_paymill_expires" />
+{% endblock %}
+
+{% block _jms_choose_payment_method_data_paymill_holder_widget %}
+  <input type="text" id="jms_choose_payment_method_data_paymill_holder" value="hajhj"/>
+{% endblock %}
+
+{% block _jms_choose_payment_method_data_paymill_code_widget %}
+  <input type="text" id="jms_choose_payment_method_data_paymill_code" value="213"/>
+{% endblock %}
