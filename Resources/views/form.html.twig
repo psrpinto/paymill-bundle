@@ -7,18 +7,40 @@
   {{ form_widget(form) }}
 {% endblock %}
 
-{% block _jms_choose_payment_method_data_paymill_number_widget %}
-  <input type="text" id="jms_choose_payment_method_data_paymill_number" value="4111111111111111"/>
+{% block _jms_choose_payment_method_data_paymill_number_row %}
+  <div class="paymill-number">
+    {{ form_label(form) }}
+    <input type="text" id="jms_choose_payment_method_data_paymill_number"
+      placeholder="•••• •••• •••• ••••" autocompletetype="cc-number"
+      pattern="\d*" data-numeric=""/>
+    <div class="card-icon-placeholder"></div>
+    <div class="card-icon"></div>
+  </div>
 {% endblock %}
 
-{% block _jms_choose_payment_method_data_paymill_expires_widget %}
-  <input type="text" id="jms_choose_payment_method_data_paymill_expires" />
+{% block _jms_choose_payment_method_data_paymill_expiry_row %}
+  <div class="paymill-expiry">
+    {{ form_label(form) }}
+    <input type="text" id="jms_choose_payment_method_data_paymill_expires"
+      placeholder="MM / YY" autocompletetype="cc-exp" maxlength="9"
+      pattern="\d*" data-numeric=""/>
+  </div>
 {% endblock %}
 
-{% block _jms_choose_payment_method_data_paymill_holder_widget %}
-  <input type="text" id="jms_choose_payment_method_data_paymill_holder" value="hajhj"/>
+{% block _jms_choose_payment_method_data_paymill_holder_row %}
+  <div class="paymill-holder">
+    {{ form_label(form) }}
+    <input type="text" id="jms_choose_payment_method_data_paymill_holder"
+      autocompletetype="name" autocapitalize="words" autocorrect="off"
+      spellcheck="off"/>
+  </div>
 {% endblock %}
 
-{% block _jms_choose_payment_method_data_paymill_code_widget %}
-  <input type="text" id="jms_choose_payment_method_data_paymill_code" value="213"/>
+{% block _jms_choose_payment_method_data_paymill_cvc_row %}
+  <div class="paymill-cvc">
+    {{ form_label(form) }}
+    <input type="text" id="jms_choose_payment_method_data_paymill_code"
+      placeholder="CVC" autocompletetype="cc-csc" maxlength="4" pattern="\d*"
+      autocomplete="off" data-numeric=""/>
+  </div>
 {% endblock %}

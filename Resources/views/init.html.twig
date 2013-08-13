@@ -1,12 +1,16 @@
 {% spaceless %}
 
-<script type="text/javascript">
+<script>
   var PAYMILL_PUBLIC_KEY = '{{ paymill.public_key }}';
 </script>
 
-<script src="https://bridge.paymill.com/"></script>
+<script src="//bridge.paymill.com/"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-{% javascripts '@FmPaymentPaymillBundle/Resources/assets/js/FmPaymentPaymill.js' %}
+{% javascripts
+  '@FmPaymentPaymillBundle/Resources/assets/js/FmPaymentPaymill.js'
+  '@FmPaymentPaymillBundle/Resources/assets/js/jquery.payment.js'
+%}
   <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 

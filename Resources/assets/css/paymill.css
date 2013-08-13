@@ -1,0 +1,126 @@
+.paymill {
+  width: 291px;
+  margin: 0;
+  padding: 15px;
+}
+
+.paymill-number, .paymill-holder {
+  width: 190px;
+  float: left;
+}
+
+.paymill-expiry, .paymill-cvc {
+  width: 85px;
+  float: right;
+}
+
+.paymill-number, .paymill-expiry, .paymill-holder, .paymill-cvc {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.paymill input:not([type="submit"]) {
+  width: 100%;
+  height: 37px;
+  margin: 0;
+  padding: 9px 7px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  color: #333;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.paymill input.error {
+  outline: none;
+  border-color: #ff7076;
+  border-top-color: #ff5c61;
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.2), 0 0 4px 0 rgba(255,0,0,0.5);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.2), 0 0 4px 0 rgba(255,0,0,0.5);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2), 0 0 4px 0 rgba(255,0,0,0.5);
+}
+
+.paymill-number input::-webkit-input-placeholder {
+  font-size: 21px;
+  line-height: 16px;
+  font-family: arial;
+}
+.paymill-number input:-moz-placeholder {
+  font-size: 21px;
+  line-height: 16px;
+  font-family: arial;
+}
+.paymill-number input:-ms-input-placeholder {
+  font-size: 21px;
+  line-height: 16px;
+  font-family: arial;
+}
+.paymill-number input.placeholder {
+  font-size: 21px;
+  line-height: 16px;
+  font-family: arial;
+}
+
+.card-icon-placeholder,
+.card-icon {
+  position: absolute;
+  margin: 0;
+  width: 32px;
+  height: 20px;
+  bottom: 9px;
+  right: 6px;
+  pointer-events: none;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAATCAYAAABlcqYFAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABV0RVh0Q3JlYXRpb24gVGltZQA4LzI5LzEy2l0gqgAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAHaSURBVDiNtZXNchpBDIQ/9SywwOJKhdyS93+z5GZXOYDXsIyUw7ADxJVKoEjfND/SqKVpWUTEth/Y9AMegWEEgSRyzshUbDMiIAgigpQSOWeAqzPZHTPDgKfFlG4+wbb9EK+7A2aAGUQA4HG+lFLC3a+cjJAZmNWAAEmqPj4tZ9iP511EQDdveFpMeRS2/cDr2wEDlN0x2UMDAIUmDJOQTFepPhruThNE5fD7865wDGR3ZMLD64WUUr0IEBHIhKnUxMyQhLvzdb3Eo9SvkUR4nEObVTuID45zziSJCJCs7v3+oBGSaIC6GRHVCVFsd0cSOmUrE/kUkKB2Wmnhj9TnnGkuF7996W5g+9+QUkLAVd8/GuGBUkpExN9P3wGZMAONBf0fGAWkGXXoVrxs9/T7I+00sV61vGz27I/OtDHWqxagSpBkqnp1C/ZDYaDfHwF4P5QGOgxnZmTCsPL3/I4gs6Y4WLZFjtpZEdFpo3pm7Kfm3pp/Xs2u7W4G3fUaVgaHSnGCTT/cF+0P+Pl2wMfZsnk7xKYfam7uXtTzlOr4u1NKhAceRUKAOtwuZaiMK+p8Ws0b1M0nrBYTjLM+mcpw8ovOyzlX6TCdP++oGGZlgAXByM6qbejaCb8AM0USstffDioAAAAASUVORK5CYII=);
+  -webkit-transition: 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  -moz-transition: 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  transition: 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+.paymill-number.identified .card-icon-placeholder {
+  opacity: 0;
+  -webkit-transform: scale(2);
+  -moz-transform: scale(2);
+  -ms-transform: scale(2);
+  -o-transform: scale(2);
+  transform: scale(2);
+}
+
+.card-icon {
+  bottom: 8px;
+  opacity: 0;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  transform: scale(0.8);
+  background-size: 32px 20px;
+}
+.paymill-number.identified .card-icon {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+}
+
+.paymill-number.visa .card-icon {
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAYAAADskT9PAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABR0RVh0Q3JlYXRpb24gVGltZQA2LzMvMTLlp73NAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAA5pJREFUSIm9lk1oXFUYhp9z79yZOz+ZGYOJrTFNRFJTNNJU0IW6aKn4AyoICi5MIW78A6O4U3AnWkR00Y3aRVHsrtVCdSMEY5VSrIkmbbRJatqmaWcSMzN3/u7P3HNcZHInk6YupNMXLnzfOfd87/u955zLFUopAG5764c08Amwj9biEDCS+XhvHiC0NurZ6lPDjAy1b9uKbhgtYfa9GisXF/d5tiOoNxoIcG05FDdtKgt/t4R8DWGgbKuhawR4trqcvaq6WsrewOW1IBBw9LWernv6em8K+5mZ+aDRQEBnm6CnM3pTBCxdFUEcCEBJlIK1W9EqCCFAySDXggnlAwopJVJKfDuPO/4Rpa/uxv7+Wc5nK+jDY4x8PcvodA59eIzR6RwrJZfB906jD4+hD48F63d/+Dv68BhHTy8FY1JKQNW5NghA+SilkNJHSh8ViqMNvMHL2c8p/jPPsV+voDllRh7dyoVMEc0pkzYFP55dZmo2y8ieDr55vR8pfSbm85yYXERzy/wxnwtqSrnKwToBofUONFQ28OD2Lbw5+gx/iTl290XpShtcyljobomB7jipqKA95HDg2ylw7+Kxe1McOD7DnUlJb2ecqbksUvYE9aSU13FAyroDsul5uD/NkZkezpxb5MVHuvB9n8nZDDtvj1Cr1ZiYXebgq7voTQkmZzLkig7Hf5ljYWGJE7/NM3nuSlM9pRSsa3ITBxrqAHbckeAWwwXgiV1bkNKnmC/QHgYpfd757CcWsiUA3n1+D9+dPE85t8IXb+/lQsbi/S9PNdWUUm9yQKyd+vFTP6sdA4O4rstGtCVTAJSKFkop4vEEAOVyiURbEk1bNbJarQAQjcaoVitomkYkYmIV8kGtcDjM9OQ4gw88JDY4ULdogwMAVn6lKS8VC0FcLOSued+1q0FsV8pNc6tnYLMtcAr4pSX8TRy4kdDCYYTTaCDYAuvgzotAd0vZG7iUfGliG6xzoJwrdbf3t6Eb2vWX3QD4nmTlz2J3sp6HHt8u9EgkYnzwZPpwtVh9IXKrgQiJ/yzyf6FqCmfZw7H9w6/cFzVLJdsLaZqmm6YZPXQyv/+pPiOeyPJ0S9jrsBx17MhZZ3+hUIvGYroUz92fDOdyViwWi6Qsy4mGQqvb4nlgGGCaq39HlYqHlGCaAqUUhmHgOB7pdDL4wLiuS7ns0dGRolarUa1WSSQSCCGwLAvbVoTD1EwzUlVKFYQQlX8BIdDqSk4gJ6MAAAAASUVORK5CYII=);
+}
+.paymill-number.mastercard .card-icon {
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAYAAADskT9PAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABR0RVh0Q3JlYXRpb24gVGltZQA2LzMvMTLlp73NAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAABOtJREFUSIm1lV+MXVUVxn9773PuOffcO3/utM44dWDsqOAg0mJIG60BIlSaWBMkxsTSZExMJUYfSCAxqE9YEzWoxAd98YFqfZAQEn3QGlNfeCAxIIkSGomVQm0nM21nhts595x7zt5r+XBvZ0CmfRr3085ee6/vW99aey2jqgDcfvQ348DTwAL/33UCePTVkw+vAUTXTlXk6eboyMLsHfOkWYI124sqCmWvz5t/P7NQdK8CfOV/CSxMzc1RFYEyX8dYYLtIKKiAtZapuTne+NsrC1sQCFRFjYsD1pltRL/mX6lrJdSCStg43ySggoiHYFFjMHqNgBKqmn6+TpWvI8FjXUSj1aaRtQCoevl7bEmrjWvEG4GoKhIUEUFVtiAgAak9qAU1GGNQVeoix15a5PHeKgfzVdL1dcp2mz+3OjzlmpiW5YkvOO7bZ4gzT92LOP3XLk/9IabOpoibrQ1f4hXx11NAhBACanSggDH4fgmL53l26SwT3ZWhHpCUOYcvL3Fg1wTR8WlGd3oAQl4TJzGHPg2fmm/w4A89FTNESbqpQBBUtlRAEF8Dju7iBVSE3uoVvv7v06z0K7rW4SUQWcfr3YvcMrqLcO8yMxK4eq7CF32UFA1Co21oZA2O3RHxgxc86cgY+cpldnzwVsSHGxEI9K+ucc+dN/Ple2fZ2WlzszvKxceOI/0+aZLgKs+hX5zk7CPfJrtnmmqtIhmfIZ0YpzH5IKpCce4ZqrUrPHBgklNvjXLLrbMcfeAQD33rd6RjO69HICC+pipyPr9/F+Odcfq+Qq5cYua730RFMNZS9XoU5y+w+/jj2A8nA+l9hYsa/HJhP3vv/yR3HfneRlBPHGvx41+/SF7MITpQecsaEBEkBCJr8SZmaaVg8eISN8U5oewRuQivQuQiEMED/ciT7Mh49U8/Y/7+b/DVn58A6wjFItY5XnvhORY7xzjyuU/wo1+9iDEWCQG5XgpCqKGR8vAjP0HqGqzh2OvPMAL0JdDKWnTfXiNKU3xZMvuR91N8XNh39zQnHjtCnLZZfGuVJHUU6yVXmnP8drGHtY6oPcbUR/cQfH2jFHhs5JjddzeoUPVyTk3P8NN//J4965dAgJHO4EEMZ+pJml/awd6ZNfbf1Rp62gnAy//p8LVnDzB529SgXxiLeD8swut9Q+9RFCMOY8DYiP7IBI/efpiD517ii8uv8aGyy9l0lOcmb+PUzF7MScPhj/2Lo3e+wfxElzMro5x8ZTd//Oc8fTdOw0ZIUFTDMMh3/wJzbRre9Jnv69jUBzCRw1oLxqIqhLoiVH1CXSEhgCoYg7EW69ygfsLQ6dBmncPFDVwjwcUNjLGgMuiCPvD20gXO/+U75j0pCFWFCQ61FsywFYtisDgXY220yRyzccc6hzrdtBmDwUJQROshwLANhxukwFcFxkYYazHmHQNJFdVBP38HyuZ+K5sKQeqNC6qKiqDi312EdvKgVZH4fbv3PJ+LfyhttTE2GoBv4zgGRcVT5uv4fu95N/XZJE3TOhobG3POuTS//OaTaXtirN9duW+bYLdcBn+a0HtSVVNVFRNPH4qttU1jzEiapqlzzhljWF1dxRhDo9Ggqiq893Q6HZxziAhRFLG8vEyz2STLMsqyJIRAWRSMdzr0ej2SJKEsS0SELMsAyPM8ZFlWJklyFSj+C+5RrstYH4quAAAAAElFTkSuQmCC);
+}
+.paymill-number.maestro .card-icon {
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAIAAABj86gYAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB90IDRAiKsBBGssAAAOVSURBVDjLtZVdaBxVFMfvzNzdzd3ZdfZrkm4+uhtS425SG02CbkqTgNpAW6QEDX2wT4oICgE/ECz4UMUiKIqPQhHEWpSotDGilmqNtLaSr27cj7SNcU3WbeJ2J5nsZD+y98z4MGXdbHbBh3heZuaeM7//uecc7mVSqZQsy6qqop02lmUFQcCSJImiaLFYdlxAUZRkMokBgBACADsuoGMxAGyny1n4cjJ1ZT69JOUpaA4LfnA3P9jpbKsnCCF5Orj48Vnpyq/55B3WYOBbvOLBRzxPHzc47GUcAGBmZ2e9Xm/p6s830+9+v5wtVOjKYZ95YPz0ysi57S7ObPa/80btoYOli7FYjKWUQon9GJXfHEtUpCOE5i78MrOwXtEFmUzohVeWR78tpVFKsf7Qg6QMvH9xpVpN90Uv3T83ThFCmEO0cs9uvHaS79xnFF3FEm3ZwVfTa7mCVnnmVMgQYaLjyETHkWu9x6slAdls/KMzW3agC+juiVgWIWTE7OlnfKPTdxodpvYG/sTIgmg1JBYSbfLvtjrH7fm43e207w+4H+1bC4bSN25BJqtubpLG+rWZWU1VV3+63Pji8zqwXGA5TRFCe2qJ22bqbrZ2Nd8TS2aPdrn23ytcjzn6Xz0gKYXJWHqwS4x/crauL5BfSXZ/+EH83NfigZ703C05FAmffDsfTxSB5QK6+erNwUWlz2e7Or+u5KDfZwMVWQkHqhZJbISWlJZa4vE0EXfdWigi/xbemP9DzeXlUMTR3Vks/b8CAKBpd+teZ+ES64A55oewREENLiq5gipaDRt5uBCS7Dz2usgmaGYjl565roh2Z6B76YvzyfHLD7x3ivfsjp35DCFkbHAXgQDAjI2N+f1+/fvTqcw3kVy1Bh4bPWXJrCKEOBY5//6zWpjrqSH38HP6ezQaxZTSouBhv+nizXyeVh6k0YHhpkQUIfT4X5dQFQGW1Fh7e4pASimrC+gm1DDPBszVUsuZeLu8PDD1uTE4WS2m/sTLppbmIpBSypZ1OOAxDPfyNZjZ/rPGMOTJJxoeaq+SO2l663XhsX7OwpeeRZhSyjBbcA97jG27DN/N5abjhdvrQAEJhG3fhQfuM+1xYdTzUuboIWnkvDI1Q1OrDMYmT5O1t8d1bJCzCWWqd6doezpWEzPUQYY6SMVkzXv95r3+/3JiAwDWNE2SJKfTueP3QSqV0jQNt7a2hsPh/+nK9Pl8/wCi8w23lTRfFwAAAABJRU5ErkJggg==);
+}
+.paymill-number.amex .card-icon {
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAYAAADskT9PAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABR0RVh0Q3JlYXRpb24gVGltZQA2LzMvMTLlp73NAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAABJ9JREFUSIm1lU2IZFcVx3/nvo+qro/uqZ6eyWQ6M3GjGcKY0CCIqCiO40IXCuIiZNEuFHSlK0HdugyYvSC4EEFxEUSDRJRIcGVIeiZmHKIZM90zE/qrurrqVdd79557XLzq6m6mV9I+uLzLuffd83v3/M85YmYAfPu14TngZWCV/+/zC+D7P7vZ3QNID60h6MvtpltdvpjRTAUHiJyNRzOIwCQYDzb9ajGJAN88AaBeVzu9hL19T1QjOSvvh+eb4RKhMyfsD3X1MYDgA4Mh5ImQOoGz9U80qCqjUiP4MLPPALwPlKNAqYqY4QREBKPWiBwSHYLZ0dyizdaEo29me6wGwAlkKeHI/xFAWZSsLDb4+spFBGg3EjaHFe1GQp44+mNPr5XRH3uAE/OL3Zyi0npf4em1M0al0mul9MeBTp7MeH70+w2CZDMAdxzga88t8uYHQ954bw8DfvfmJsMDZW1jxJ/f2WGn8Lz1nyGpCDsjj0bQCP1x4E/v7PLqrW0WWhlvb4z41+YBozLyx1tb/OVun+3Cs1N4JuOS4PWUEJSe/Yly596A1lzCo72S+dzxz4cjzCDB0GAEr6gZqpG1+0Mw49PXFvFVAIwsgb/d3uLKE23eezgid8bKU21eXdviC9eXCJWi7hQNaIy0c+Ebn3oSN83BLz63BECeJlShQ54lfPxKl0mlLHZyPnetV4feCTeunydPHQ/6Jd+6cYVbGwXXnmwB0JlL+dL183RbKRrt9BsQ5/jBr/+NkzpdBCFqRL2eEJnFiBk4V0fvsJDJNG1jjCSJI0abiVIEVCPiHCaOYPI4QBQjitQHOwEn+Innpy88w+ZgAgiNzNHMascTHym9Mt+qBbU/9jSyhPlWytagBOCp83Ns7BwAsDybCz/+7fuPi1BDxKIRBWw6fBXYHFWs3d8nUtvefVTw7qOC1+9ss7w0xyt//5DXbm+xvDTH+1tj1taH0/3C+l7J2gf7XDjX5PU7u6zvTFhebFKNy8cBQlC8V4Kv3/UI+KCEMqAxomrc29jnaq/Bww9H/OHtTb78/EXKccX97QPuPRgSKq2FppHL8zkrH5nnV39d57PP9Lg0n/OT39xFNZ4C4BVfBqoqzABUjQvdBs8+PY+qEaNx4/kL5Jnjhc9fJTPjrfv73Fx5gsvnGnzlE5f42OUOz17totGYaOTAR25cX2JvElCLfOfm0+ihpjhRihWvEM2hwSGJEIHv/vw2WoZp1ZOjBiW1SDHDpa4WWDQww8zq1E0dGiLiBCKoD4DjmP/j3TBQRSPRBEkEcVJrotKZ0sE4rLLIofIF9RFMjy1MdVVNbWpYNEwhxkDMZm5PdMM63lWYAfxvDclONdUA9e3EYxqQ7JM/TLvdbqOz/NFfJo3WVzMEbPp3Z9URbVovBDyGluNXdu/948WiKMq01+slIYTW3vrdl+YWLp0n7XzmjNyezhKGbwy3119qZHkrz/OQDgYD2u22DQeDrcl4/D0gW1hYwHuPqqKq5HnOwcEBaZrinCNJEsqypNPpUJYljUYDM2N3d5dms0kIAeccIkKz2SRJEkSEfr+PiPg8z4uiKCyEwH8B2eOgDB31KzgAAAAASUVORK5CYII=);
+}

@@ -11,9 +11,9 @@ class PaymillType extends AbstractType
     {
         $builder
             ->add('number' , 'text',   array('required' => false))
-            ->add('expires', 'text',   array('required' => false))
+            ->add('expiry' , 'text',   array('required' => false))
             ->add('holder' , 'text',   array('required' => false))
-            ->add('code'   , 'text',   array('required' => false))
+            ->add('cvc'    , 'text',   array('required' => false))
             ->add('token'  , 'hidden', array('required' => false))
         ;
     }

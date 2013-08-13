@@ -1,17 +1,18 @@
+$(document).ready(function () {
+    FmPaymentPaymill.init();
+});
+
 var FmPaymentPaymill = {
     els: {
-        form:    'form',
-        submit:  'form input[type=submit]',
-        number:  '#jms_choose_payment_method_data_paymill_number',
-        expires: '#jms_choose_payment_method_data_paymill_expires',
-        holder:  '#jms_choose_payment_method_data_paymill_holder',
-        code:    '#jms_choose_payment_method_data_paymill_code',
-        errors:  '.payment-errors'
-    },
+        form:   '.paymill',
+        submit: '.paymill input[type=submit]',
+        number: '.paymill-number input',
+        expiry: '.paymill-expiry input',
+        holder: '.paymill-holder input',
+        cvc:    '.paymill-cvc input',
+        token:  'input[name="jms_choose_payment_method[data_paymill][token]"]',
 
-    trans: {
-        numberInvalid: 'Invalid card number',
-        expiresInvalid: 'Invalid expiration date'
+        errors: '.payment-errors'
     },
 
     /**
@@ -23,38 +24,74 @@ var FmPaymentPaymill = {
         this.currency = currency;
         this.options  = options;
 
+        $('[data-numeric]').payment('restrictNumeric');
+        $(this.els.number).payment('formatCardNumber');
+        $(this.els.expiry).payment('formatCardExpiry');
+        $(this.els.cvc).payment('formatCardCVC');
+
+        // Remove previous errors when a field is changed
+        $(this.els.form).find('input').keyup(function () {
+            $(this).removeClass('error');
+        });
+
+        $(this.els.number).keyup(Fm.bind(this.setCardType, this));
         $(this.els.form).submit(Fm.bind(this.onSubmit, this));
+    },
+
+    /**
+     * Show the card type icon according to the (partial) card number.
+     */
+    setCardType: function () {
+        var number  = $(this.els.number).val();
+        var $target = $('.paymill-number');
+
+        $target.removeClass('visa mastercard maestro amex identified');
+
+        var cardType = $.payment.cardType(number);
+        if (cardType && number.length >= 4) {
+            $target.addClass(cardType).addClass('identified');
+        }
     },
 
     /**
      * Called when the submit button is clicked
      */
     onSubmit: function () {
+        $(this.els.form).find('input').removeClass('error');
         this.enableSubmit(false);
 
-        // var month = $(this.els.expires).val();
-        // var year  = $(this.els.expires).val();
-        var month = '12';
-        var year  = '2013';
+        var number  = $(this.els.number).val();
+        var expiry = $(this.els.expiry).payment('cardExpiryVal');
+        var cvc     = $(this.els.cvc).val();
+        var holder  = $(this.els.holder).val();
 
-        if (!paymill.validateCardNumber($(this.els.number).val())) {
-            this.error(this.trans.numberInvalid);
-            this.enableSubmit();
-            return false;
+        if (!paymill.validateCardNumber(number)) {
+            $(this.els.number).addClass('error');
         }
 
-        if (!paymill.validateExpiry(month, year)) {
-            this.error(this.trans.expiresInvalid);
+        if (!paymill.validateExpiry(expiry.month, expiry.year)) {
+            $(this.els.expiry).addClass('error');
+        }
+
+        if (!paymill.validateCvc(cvc, number)) {
+            $(this.els.cvc).addClass('error');
+        }
+
+        if (holder === '') {
+            $(this.els.holder).addClass('error');
+        }
+
+        if ($(this.els.form).find('input.error').length) {
             this.enableSubmit();
             return false;
         }
 
         paymill.createToken({
-            number:     $(this.els.number).val(),
-            exp_month:  month,
-            exp_year:   year,
-            cvc:        $(this.els.code).val(),
-            cardholder: $(this.els.holder).val(),
+            number:     number,
+            exp_month:  expiry.month,
+            exp_year:   expiry.year,
+            cvc:        cvc,
+            cardholder: holder,
             amount_int: $(this.amount).val(),
             currency:   $(this.currency).val()
         }, Fm.bind(this.onResponse, this));
@@ -74,8 +111,7 @@ var FmPaymentPaymill = {
         } else {
             this.error('');
             var form = $(this.els.form);
-            form.find('input[name="jms_choose_payment_method[data_paymill][token]"]')
-                .val(result.token);
+            form.find(this.els.token).val(result.token);
             form.get(0).submit();
         }
 
@@ -101,9 +137,9 @@ var FmPaymentPaymill = {
     }
 };
 
+// Create a function bound to a given object (assigning this, and arguments,
+// optionally). Borrowed from underscore.js
 var Fm = {
-    // Create a function bound to a given object (assigning this, and arguments,
-    // optionally). Borrowed from underscore.js
     bind: function(func, context) {
         var args, bound;
         args = Array.prototype.slice.call(arguments, 2);
