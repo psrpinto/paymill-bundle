@@ -1,8 +1,7 @@
 # Setup
-Note that this bundle uses functionality provided by [JMSPaymentCoreBundle](https://github.com/schmittjoh/JMSPaymentCoreBundle). These instructions will also guide through the installation of that bundle.
+Note that this bundle uses functionality provided by [JMSPaymentCoreBundle](https://github.com/schmittjoh/JMSPaymentCoreBundle). These instructions will also guide you through the installation of that bundle.
 
 ## Installation
-
 Add the following to your `composer.json`:
 
 ```json
@@ -15,9 +14,7 @@ Add the following to your `composer.json`:
 
 You can then install the bundle and it's dependencies by running Composer’s `update` command from the directory where your `composer.json` file is located:
 
-```
-$ php composer.phar update fitmemes/paymill-bundle
-```
+    $ php composer.phar update fitmemes/paymill-bundle
 
 Then register the new bundles in `AppKernel.php`:
 
@@ -56,3 +53,15 @@ fm_payment_paymill:
     api_private_key: paymill_api_private_key
     api_public_key:  paymill_api_public_key
 ```
+
+## Create database tables
+JMSPaymentCoreBundle needs a few database tables so you'll have to create them. If you want to know more about the data model see [JMSPaymentCoreBundle's documentation](http://jmsyst.com/bundles/JMSPaymentCoreBundle/master/model).
+
+If you're not using [database migrations](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html), you can create the new tables with following command:
+
+    $ php app/console doctrine:schema:update
+
+Or, if you are using migrations:
+
+    php app/console doctrine:migrations:diff
+    php app/console doctrine:migrations:migrate
