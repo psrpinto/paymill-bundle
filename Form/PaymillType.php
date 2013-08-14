@@ -10,10 +10,10 @@ class PaymillType extends AbstractType
     public function buildForm (FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('number' , 'text',   array('required' => false))
-            ->add('expiry' , 'text',   array('required' => false))
-            ->add('holder' , 'text',   array('required' => false))
-            ->add('cvc'    , 'text',   array('required' => false))
+            ->add('number' , 'text',   array('required' => false, 'label' => 'Card number'))
+            ->add('expiry' , 'text',   array('required' => false, 'label' => 'Expires'))
+            ->add('holder' , 'text',   array('required' => false, 'label' => 'Name on card'))
+            ->add('cvc'    , 'text',   array('required' => false, 'label' => 'Card code'))
             ->add('token'  , 'hidden', array('required' => false))
         ;
     }
