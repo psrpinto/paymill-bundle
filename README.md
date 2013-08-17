@@ -34,10 +34,10 @@ In order for you to not have to worry about PCI compliance, the credit card info
 You then submit the form to your server, excluding the credit card information but including the `token` returned from Paymill's server. In your controller, this `token` will be used to make a request to Paymill's API and [create a transaction](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#create-new-transaction-with), aka a Payment. (If fact, you will not make requests to Paymill's API directly, you'll be using the high-level API made available by JMSPaymentCoreBundle.) If the `transaction` was successfuly created, the money was transferred to your Paymill account and you're done.
 
 ## Credit card form
-TODO
+The Credit card form is where your customers will enter their credit card information. You can either use the default form or build your own.
 
 ### Using the default form
-TODO
+Suppose
 
 ### Building your own form
 TODO

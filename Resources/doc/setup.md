@@ -65,3 +65,13 @@ If you're using [database migrations](http://symfony.com/doc/current/bundles/Doc
 Or, if you're not using migrations:
 
     php app/console doctrine:schema:update
+
+
+## Initialize javascript
+You need to include some scripts in the pages in which you plan on using this bundle. To simplify this, a Twig function is available, which you'll typically call before closing the `<body>` tag:
+
+```twig
+{{ paymill_initialize() }}
+```
+
+This will simply render the [Resources/views/init.html.twig](../../Resources/views/init.html.twig) template. If you have special requirements, instead of calling `paymill_initialize()` you can simply copy the contents of the template and paste it in your page, modifying it as you see fit.
