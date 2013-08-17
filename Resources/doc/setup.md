@@ -57,11 +57,11 @@ fm_payment_paymill:
 ## Create database tables
 JMSPaymentCoreBundle needs a few database tables so you'll have to create them. If you want to know more about the data model see [JMSPaymentCoreBundle's documentation](http://jmsyst.com/bundles/JMSPaymentCoreBundle/master/model).
 
-If you're not using [database migrations](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html), you can create the new tables with following command:
-
-    $ php app/console doctrine:schema:update
-
-Or, if you are using migrations:
+If you're using [database migrations](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html), you can create the new tables with following commands:
 
     php app/console doctrine:migrations:diff
     php app/console doctrine:migrations:migrate
+
+Or, if you're not using migrations:
+
+    php app/console doctrine:schema:update
