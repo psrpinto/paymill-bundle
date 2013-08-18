@@ -28,7 +28,7 @@ $bundles = array(
 );
 ```
 
-If you wish to use the included *Credit Card form*, you'll have to tell *assetic* about this bundle:
+Finally, you need to tell *Assetic* about this bundle:
 
 ```yml
 // app/config.yml
@@ -68,10 +68,10 @@ Or, if you're not using migrations:
 
 
 ## Initialize javascript
-You need to include some scripts in the pages in which you plan on using this bundle. To simplify this, a Twig function is available, which you'll typically call before closing the `<body>` tag:
+You need to include some scripts in the pages in which you plan on using this bundle. To simplify this, a Twig function is available, which you'll typically call before the closing `<body>` tag:
 
 ```twig
 {{ paymill_initialize() }}
 ```
 
-This will simply render the [Resources/views/init.html.twig](../../Resources/views/init.html.twig) template. If you have special requirements, instead of calling `paymill_initialize()` you can simply copy the contents of the template and paste it in your page, modifying it as you see fit.
+This will simply render the [Resources/views/init.html.twig](../../Resources/views/init.html.twig) template. If you have special requirements, instead of calling `paymill_initialize()` you can copy the contents of the template and paste it in your page, modifying it as you see fit.
