@@ -1,7 +1,3 @@
-$(document).ready(function () {
-    FmPaymentPaymill.init();
-});
-
 var FmPaymentPaymill = {
     els: {
         form:   '.paymill',
@@ -10,19 +6,17 @@ var FmPaymentPaymill = {
         expiry: '.paymill-expiry input',
         holder: '.paymill-holder input',
         cvc:    '.paymill-cvc input',
-        token:  'input[name="jms_choose_payment_method[data_paymill][token]"]',
-
-        errors: '.payment-errors'
+        errors: '.paymill-errors',
+        token:  'input[name="jms_choose_payment_method[data_paymill][token]"]'
     },
 
     /**
      * @param string amount   "4900" for 49,00 EUR
      * @param string currency ISO 4217 i.e. "EUR"
      */
-    init: function (amount, currency, options) {
-        this.amount   = amount;
-        this.currency = currency;
-        this.options  = options;
+    init: function (options) {
+        this.amount   = options.amount;
+        this.currency = options.currency;
 
         $('[data-numeric]').payment('restrictNumeric');
         $(this.els.number).payment('formatCardNumber');
@@ -58,6 +52,7 @@ var FmPaymentPaymill = {
      */
     onSubmit: function () {
         $(this.els.form).find('input').removeClass('error');
+        this.error('');
         this.enableSubmit(false);
 
         var number  = $(this.els.number).val();
@@ -92,8 +87,8 @@ var FmPaymentPaymill = {
             exp_year:   expiry.year,
             cvc:        cvc,
             cardholder: holder,
-            amount_int: $(this.amount).val(),
-            currency:   $(this.currency).val()
+            amount_int: this.amount,
+            currency:   this.currency
         }, Fm.bind(this.onResponse, this));
 
         return false;
@@ -101,9 +96,6 @@ var FmPaymentPaymill = {
 
     /**
      * Received a response from the Paymill API.
-     *
-     * @param {[type]} error  [description]
-     * @param {[type]} result [description]
      */
     onResponse: function (error, result) {
         if (error) {

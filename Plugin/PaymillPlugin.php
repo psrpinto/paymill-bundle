@@ -25,14 +25,14 @@ class PaymillPlugin extends AbstractPlugin
     {
         try {
             $data   = $transaction->getExtendedData();
-            $client = $this->api->getClient($data->get('client'));
+            $client = $this->api->getClient($data->has('client') ? $data->get('client') : null);
 
             $response = $this->api->createTransaction(
                 $client,
                 $data->get('token'),
                 $transaction->getRequestedAmount() * 100, // in cents
                 $transaction->getPayment()->getPaymentInstruction()->getCurrency(),
-                $data->get('description')
+                $data->has('description') ? $data->get('description') : null
             );
 
         } catch (PaymillException $e) {

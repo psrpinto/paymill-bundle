@@ -41,11 +41,16 @@ class PaymillExtension extends TwigExtension
     /**
      * Render the Paymill initialization markup.
      *
+     * @param integer $amount   Amount
+     * @param string  $currency Currency
      * @return string
      */
-    public function renderInitialize ()
+    public function renderInitialize ($amount, $currency)
     {
-        return $this->container->get('fm_payment_paymill.helper')->initialize();
+        return $this->container->get('fm_payment_paymill.helper')->initialize(array(
+            'amount'   => $amount,
+            'currency' => $currency
+        ));
     }
 
     /**

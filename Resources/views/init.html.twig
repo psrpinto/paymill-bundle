@@ -14,4 +14,13 @@
   <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
+<script>
+  $(document).ready(function () {
+    FmPaymentPaymill.init({
+      amount: '{{ amount * 100 }}',
+      currency: '{{ currency }}'
+    });
+  });
+</script>
+
 {% endspaceless %}

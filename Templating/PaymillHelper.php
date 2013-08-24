@@ -19,11 +19,12 @@ class PaymillHelper extends Helper
     /**
      * Render the Paymill initialization markup.
      *
+     * @param  array $options Array containing the amount and currency
      * @return string
      */
-    public function initialize ()
+    public function initialize (array $options)
     {
-        return $this->engine->render($this->template);
+        return $this->engine->render($this->template, $options);
     }
 
     /**
