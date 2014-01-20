@@ -1,7 +1,7 @@
 services:
     memeoirs_paymill.plugin:
        class: Memeoirs\PaymillBundle\Plugin\PaymillPlugin
-       memeoirs [%memeoirs_paymill.api_private_key%]
+       arguments: [%memeoirs_paymill.api_private_key%]
        tags:
             - { name: payment.plugin }
 
@@ -13,12 +13,12 @@ services:
 
     memeoirs_paymill.extension:
       class: Memeoirs\PaymillBundle\Templating\PaymillExtension
-      memeoirs [@service_container, %memeoirs_paymill.api_public_key%]
+      arguments: [@service_container, %memeoirs_paymill.api_public_key%]
       tags:
         - { name: twig.extension }
 
     memeoirs_paymill.helper:
       class: Memeoirs\PaymillBundle\Templating\PaymillHelper
-      memeoirs [@templating, %memeoirs_paymill.initialize_template%]
+      arguments: [@templating, %memeoirs_paymill.initialize_template%]
       tags:
         - { name: templating.helper }
