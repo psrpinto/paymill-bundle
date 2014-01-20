@@ -1,4 +1,4 @@
-var FmPaymentPaymill = {
+var Paymill = {
     els: {
         form:   '.paymill',
         submit: '.paymill input[type=submit]',
@@ -28,8 +28,8 @@ var FmPaymentPaymill = {
             $(this).removeClass('error');
         });
 
-        $(this.els.number).keyup(Fm.bind(this.setCardType, this));
-        $(this.els.form).submit(Fm.bind(this.onSubmit, this));
+        $(this.els.number).keyup(Util.bind(this.setCardType, this));
+        $(this.els.form).submit(Util.bind(this.onSubmit, this));
     },
 
     /**
@@ -89,7 +89,7 @@ var FmPaymentPaymill = {
             cardholder: holder,
             amount_int: this.amount,
             currency:   this.currency
-        }, Fm.bind(this.onResponse, this));
+        }, Util.bind(this.onResponse, this));
 
         return false;
     },
@@ -131,7 +131,7 @@ var FmPaymentPaymill = {
 
 // Create a function bound to a given object (assigning this, and arguments,
 // optionally). Borrowed from underscore.js
-var Fm = {
+var Util = {
     bind: function(func, context) {
         var args, bound;
         args = Array.prototype.slice.call(arguments, 2);

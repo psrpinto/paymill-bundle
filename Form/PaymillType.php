@@ -1,6 +1,6 @@
 <?php
 
-namespace Fm\PaymentPaymillBundle\Form;
+namespace Memeoirs\PaymillBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

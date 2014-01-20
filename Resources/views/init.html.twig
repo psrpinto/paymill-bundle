@@ -8,15 +8,15 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 {% javascripts
-  '@FmPaymentPaymillBundle/Resources/assets/js/FmPaymentPaymill.js'
-  '@FmPaymentPaymillBundle/Resources/assets/js/jquery.payment.js'
+  '@MemeoirsPaymillBundle/Resources/assets/js/CreditCardForm.js'
+  '@MemeoirsPaymillBundle/Resources/assets/js/jquery.payment.js'
 %}
   <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
 <script>
   $(document).ready(function () {
-    FmPaymentPaymill.init({
+    Paymill.init({
       amount: '{{ amount * 100 }}',
       currency: '{{ currency }}'
     });

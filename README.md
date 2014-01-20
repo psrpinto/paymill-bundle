@@ -1,5 +1,5 @@
 # paymill-bundle
-Straight forward integration of [Paymill](http://paymill.com) payments into Symfony 2 applications. **See [paymill-bundle-example](https://github.com/fitmemes/paymill-bundle-example) for an example Symfony app that uses this bundle.**
+Straight forward integration of [Paymill](http://paymill.com) payments into Symfony 2 applications. **See [paymill-bundle-example](https://github.com/memeoirs/paymill-bundle-example) for an example Symfony app that uses this bundle.**
 
 ![Credit card form screenshot](Resources/doc/form.png)
 
@@ -25,14 +25,14 @@ Add the following to your `composer.json`:
 ```json
 {
     "require": {
-        "fitmemes/paymill-bundle": "@dev"
+        "memeoirs/paymill-bundle": "@dev"
     }
 }
 ```
 
 You can then install the bundle and it's dependencies by running `composer update`:
 
-    $ composer update fitmemes/paymill-bundle
+    $ composer update memeoirs/paymill-bundle
 
 Then register the new bundles in `AppKernel.php`:
 
@@ -41,7 +41,7 @@ Then register the new bundles in `AppKernel.php`:
 $bundles = array(
     // ...
     new JMS\Payment\CoreBundle\JMSPaymentCoreBundle(),
-    new Fm\PaymentPaymillBundle\FmPaymentPaymillBundle(),
+    new Memeoirs\PaymillBundle\MemeoirsPaymillBundle(),
     // ...
 );
 ```
@@ -51,7 +51,7 @@ Finally, you need to tell *Assetic* about this bundle:
 ```yml
 // app/config.yml
 assetic:
-    bundles: ['AcmeSomeBundle', 'FmPaymentPaymillBundle']
+    bundles: ['AcmeSomeBundle', 'MemeoirsPaymillBundle']
 ```
 
 ### Configuration
@@ -67,7 +67,7 @@ Finally, you need to specify Paymill's private and public keys. You'll need to c
 
 ```yml
 // app/config.yml
-fm_payment_paymill:
+memeoirs_paymill:
     api_private_key: paymill_api_private_key
     api_public_key:  paymill_api_public_key
 ```
@@ -95,7 +95,7 @@ This will simply render the [Resources/views/init.html.twig](Resources/views/ini
 
 ```yml
 // app/config/config.yml
-fm_payment_paymill:
+memeoirs_paymill:
     initialize_template: AcmeDemoBundle::init_paymill.html.twig
 ```
 

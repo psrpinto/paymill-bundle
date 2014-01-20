@@ -1,6 +1,6 @@
 <?php
 
-namespace Fm\PaymentPaymillBundle\Plugin;
+namespace Memeoirs\PaymillBundle\Plugin;
 
 use JMS\Payment\CoreBundle\Plugin\AbstractPlugin,
     JMS\Payment\CoreBundle\Model\FinancialTransactionInterface,

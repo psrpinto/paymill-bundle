@@ -1,9 +1,9 @@
 {
-    "name": "fitmemes/paymill-bundle",
+    "name": "memeoirs/paymill-bundle",
     "type": "symfony-bundle",
-    "description": "A Paymill provider for JMSPaymentCoreBundle",
+    "description": "Paymill payments for Symfony apps",
     "keywords": ["payment", "paymill"],
-    "homepage": "https://github.com/fitmemes/paymill-bundle",
+    "homepage": "https://github.com/memeoirs/paymill-bundle",
     "license": "Apache",
     "authors": [
         {
@@ -18,7 +18,7 @@
         "paymill/paymill": "2.0.*"
     },
     "autoload": {
-        "psr-0": { "Fm\\PaymentPaymillBundle": "" }
+        "psr-0": { "Memeoirs\\PaymillBundle": "" }
     },
-    "target-dir": "Fm/PaymentPaymillBundle"
+    "target-dir": "Memeoirs/PaymillBundle"
 }

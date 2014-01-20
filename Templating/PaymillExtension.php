@@ -1,6 +1,6 @@
 <?php
 
-namespace Fm\PaymentPaymillBundle\Templating;
+namespace Memeoirs\PaymillBundle\Templating;
 
 use \Twig_Extension as TwigExtension;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -47,7 +47,7 @@ class PaymillExtension extends TwigExtension
      */
     public function renderInitialize ($amount, $currency)
     {
-        return $this->container->get('fm_payment_paymill.helper')->initialize(array(
+        return $this->container->get('memeoirs_paymill.helper')->initialize(array(
             'amount'   => $amount,
             'currency' => $currency
         ));

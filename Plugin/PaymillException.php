@@ -1,6 +1,6 @@
 <?php
 
-namespace Fm\PaymentPaymillBundle\Plugin;
+namespace Memeoirs\PaymillBundle\Plugin;
 
 use \Exception;
 

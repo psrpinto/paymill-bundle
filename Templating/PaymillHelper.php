@@ -1,6 +1,6 @@
 <?php
 
-namespace Fm\PaymentPaymillBundle\Templating;
+namespace Memeoirs\PaymillBundle\Templating;
 
 use Symfony\Component\Templating\Helper\Helper,
     Symfony\Component\Templating\EngineInterface;

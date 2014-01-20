@@ -1,6 +1,6 @@
 <?php
 
-namespace Fm\PaymentPaymillBundle\Plugin;
+namespace Memeoirs\PaymillBundle\Plugin;
 
 /**
  * Wrapper around Paymill's PHP API.

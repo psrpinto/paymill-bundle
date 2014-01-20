@@ -1,13 +1,13 @@
 <?php
 
-namespace Fm\PaymentPaymillBundle\DependencyInjection;
+namespace Memeoirs\PaymillBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-class FmPaymentPaymillExtension extends Extension
+class MemeoirsPaymillExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -20,8 +20,8 @@ class FmPaymentPaymillExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $container->setParameter('fm_payment_paymill.api_private_key', $config['api_private_key']);
-        $container->setParameter('fm_payment_paymill.api_public_key', $config['api_public_key']);
-        $container->setParameter('fm_payment_paymill.initialize_template', $config['initialize_template']);
+        $container->setParameter('memeoirs_paymill.api_private_key', $config['api_private_key']);
+        $container->setParameter('memeoirs_paymill.api_public_key', $config['api_public_key']);
+        $container->setParameter('memeoirs_paymill.initialize_template', $config['initialize_template']);
     }
 }

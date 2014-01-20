@@ -1,24 +1,24 @@
 services:
-    fm_payment_paymill.plugin:
-       class: Fm\PaymentPaymillBundle\Plugin\PaymillPlugin
-       arguments: [%fm_payment_paymill.api_private_key%]
+    memeoirs_paymill.plugin:
+       class: Memeoirs\PaymillBundle\Plugin\PaymillPlugin
+       memeoirs [%memeoirs_paymill.api_private_key%]
        tags:
             - { name: payment.plugin }
 
-    fm_payment_paymill.paymill_type:
-        class: Fm\PaymentPaymillBundle\Form\PaymillType
+    memeoirs_paymill.paymill_type:
+        class: Memeoirs\PaymillBundle\Form\PaymillType
         tags:
             - { name: payment.method_form_type }
             - { name: form.type, alias: paymill }
 
-    fm_payment_paymill.extension:
-      class: Fm\PaymentPaymillBundle\Templating\PaymillExtension
-      arguments: [@service_container, %fm_payment_paymill.api_public_key%]
+    memeoirs_paymill.extension:
+      class: Memeoirs\PaymillBundle\Templating\PaymillExtension
+      memeoirs [@service_container, %memeoirs_paymill.api_public_key%]
       tags:
         - { name: twig.extension }
 
-    fm_payment_paymill.helper:
-      class: Fm\PaymentPaymillBundle\Templating\PaymillHelper
-      arguments: [@templating, %fm_payment_paymill.initialize_template%]
+    memeoirs_paymill.helper:
+      class: Memeoirs\PaymillBundle\Templating\PaymillHelper
+      memeoirs [@templating, %memeoirs_paymill.initialize_template%]
       tags:
         - { name: templating.helper }
