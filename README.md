@@ -25,7 +25,7 @@ Add the following to your `composer.json`:
 ```json
 {
     "require": {
-        "memeoirs/paymill-bundle": "@dev"
+        "memeoirs/paymill-bundle": "0.1.*"
     }
 }
 ```
