@@ -107,3 +107,6 @@ TODO
 
 ## Listeners
 TODO
+
+## License
+[MIT](Resources/meta/LICENSE)
