@@ -55,10 +55,10 @@ var Paymill = {
         this.error('');
         this.enableSubmit(false);
 
-        var number  = $(this.els.number).val();
+        var number = $(this.els.number).val();
         var expiry = $(this.els.expiry).payment('cardExpiryVal');
-        var cvc     = $(this.els.cvc).val();
-        var holder  = $(this.els.holder).val();
+        var cvc    = $(this.els.cvc).val();
+        var holder = $(this.els.holder).val();
 
         if (!paymill.validateCardNumber(number)) {
             $(this.els.number).addClass('error');
