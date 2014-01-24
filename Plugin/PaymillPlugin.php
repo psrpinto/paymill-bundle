@@ -9,13 +9,15 @@ use JMS\Payment\CoreBundle\Plugin\AbstractPlugin,
     JMS\Payment\CoreBundle\Plugin\Exception\PaymentPendingException,
     JMS\Payment\CoreBundle\Plugin\Exception\FinancialException;
 
+use Paymill\Services\PaymillException;
+
 class PaymillPlugin extends AbstractPlugin
 {
     private $api;
 
-    public function __construct ($privateKey)
+    public function __construct ($api)
     {
-        $this->api = new PaymillApi($privateKey);
+        $this->api = $api;
     }
 
     /**
@@ -27,44 +29,43 @@ class PaymillPlugin extends AbstractPlugin
             $data   = $transaction->getExtendedData();
             $client = $this->api->getClient($data->has('client') ? $data->get('client') : null);
 
-            $response = $this->api->createTransaction(
-                $client,
-                $data->get('token'),
-                $transaction->getRequestedAmount() * 100, // in cents
-                $transaction->getPayment()->getPaymentInstruction()->getCurrency(),
-                $data->has('description') ? $data->get('description') : null
-            );
+            $apiTransaction = new \Paymill\Models\Request\Transaction();
+            $apiTransaction
+                ->setToken($data->get('token'))
+                ->setClient($client)
+                ->setAmount($transaction->getRequestedAmount() * 100) // in cents
+                ->setCurrency($transaction->getPayment()->getPaymentInstruction()->getCurrency())
+                ->setDescription($data->has('description') ? $data->get('description') : null)
+            ;
+
+            $apiTransaction = $this->api->create($apiTransaction);
 
         } catch (PaymillException $e) {
-            $ex = new FinancialException($e->getMessage());
+            $ex = new FinancialException($e->getErrorMessage());
             $ex->setFinancialTransaction($transaction);
             $transaction->setResponseCode($e->getResponseCode());
             $transaction->setReasonCode($e->getStatusCode());
             throw $ex;
         }
 
-        $id     = $response['id'];
-        $status = $response['status'];
-        $amount = $response['amount'] / 100;
-
-        switch ($status) {
+        switch ($apiTransaction->getStatus()) {
             case 'closed':
-                $transaction->setReferenceNumber($id);
-                $transaction->setProcessedAmount($amount);
+                $transaction->setReferenceNumber($apiTransaction->getId());
+                $transaction->setProcessedAmount($apiTransaction->getAmount() / 100);
                 $transaction->setResponseCode(PluginInterface::RESPONSE_CODE_SUCCESS);
                 $transaction->setReasonCode(PluginInterface::REASON_CODE_SUCCESS);
                 break;
 
             case 'open':
             case 'pending':
-                $transaction->setReferenceNumber($id);
+                $transaction->setReferenceNumber($apiTransaction->getId());
                 throw new PaymentPendingException('Payment is still pending');
 
             default:
-                $ex = new FinancialException('Transaction is not closed: '.$status);
+                $ex = new FinancialException('Transaction is not closed: '.$apiTransaction->getStatus());
                 $ex->setFinancialTransaction($transaction);
                 $transaction->setResponseCode('Failed');
-                $transaction->setReasonCode($status);
+                $transaction->setReasonCode($apiTransaction->getStatus());
                 throw $ex;
         }
     }

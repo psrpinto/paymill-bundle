@@ -1,7 +1,11 @@
 services:
+    memeoirs_paymill.api:
+      class: Memeoirs\PaymillBundle\API\PaymillApi
+      arguments: [%memeoirs_paymill.api_private_key%]
+
     memeoirs_paymill.plugin:
        class: Memeoirs\PaymillBundle\Plugin\PaymillPlugin
-       arguments: [%memeoirs_paymill.api_private_key%]
+       arguments: [@memeoirs_paymill.api]
        tags:
             - { name: payment.plugin }
 
