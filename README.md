@@ -7,8 +7,9 @@ Straight forward integration of [Paymill](http://paymill.com) payments into Symf
 
 * Plug-and-play credit card form, inspired by Stripe's Checkout (optional)
 * High level API to create payments
+* CRUD access to Paymill's API from the command line using Symfony commands
 * Support for Paymill's [client resources](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#clients)
-* Uses [Paymill's PHP library](https://github.com/Paymill/Paymill-PHP) under the hood.
+* Uses [Paymill's PHP library](https://github.com/Paymill/Paymill-PHP) under the hood
 
 ## Coming soon (PRs welcome!)
 
@@ -55,7 +56,6 @@ assetic:
 ```
 
 ## Configuration
-
 [JMSPaymentCoreBundle's](https://github.com/schmittjoh/JMSPaymentCoreBundle) configuration is as easy as choosing a random secret string which will be used for encrypting data. Note that if you change the secret all data encrypted with the old secret will become unreadable.
 
 ```yml
@@ -273,7 +273,41 @@ public function checkoutAction ()
 ## Changing how the form looks
 TODO
 
-## Listeners
+# Console
+*Work in progress. Currently only webhooks are supported*
+
+The console commands give you CRUD access to Paymill's API from the command line.
+
+## Webhooks
+### List webhooks
+The `paymill:webhook:list` command retrieves the list of the most recent webhooks:
+
+    app/console paymill:webhook:list
+
+You can filter and paginate the results using a set of filters formatted as an HTTP query string. See [here](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#list-webhooks) for the list of all available filters. To retrieve the second page of results ordered chronologically:
+
+    app/console paymill:webhook:list "count=10&offset=10&order=created_at_asc"
+
+### Create a webhook
+The `paymill:webhook:create` command creates a new URL or Email webhook. For more information about webhooks see [Paymill's API documentation](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#document-webhooks).
+
+To create a URL webhook specify the `--url` option:
+
+    app/console paymill:webhook:create --url=https://myapp.com/some-paymil-webhook
+
+If instead you wish to create an Email webhook specify the `--email` option:
+
+    app/console paymill:webhook:create --email=payment@example.com
+
+You can specifiy the events that trigger this webhook using multiple `--event` options. If no `--event` option is used, all events will be subescribed to. See [here](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#events) for the list of available event types.
+
+    app/console paymill:webhook:create --url=... --event=transaction.succeeded --event=refund.succeeded
+
+To create an inactive webhook use the `--disable` option:
+
+    app/console paymill:webhook:create --url=... --disable
+
+# Listeners
 TODO
 
 # License
