@@ -307,6 +307,11 @@ To create an inactive webhook use the `--disable` option:
 
     app/console paymill:webhook:create --url=... --disable
 
+### Delete a webhook
+The `paymill:webhook:delete` command deletes webhooks. It takes a series of space-separated webhook ids as arguments:
+
+    app/console paymill:webhook:delete hook_c945c39154ab3b3e1ef6 hook_b4ae6600de00b9f69afa
+
 # Listeners
 TODO
 
