@@ -100,26 +100,30 @@ checkout:
 And a controller action to render the form:
 
 ```php
-// Acme\DemoBundle\Controller\OrdersController
-public function checkoutAction ()
+namespace Acme\DemoBundle\Controller;
+
+use Acme\DemoBundle\Entity\Order;
+use Memeoirs\PaymillBundle\Controller\PaymillController;
+
+class OrdersController extends PaymillController
 {
-    // $order is a Acme\DemoBundle\Entity\Order
-    $order = new Order;
-    $order->setAmount(50);
-    $order->setCurrency('EUR');
+    public function checkoutAction ()
+    {
+        $em = $this->getDoctrine()->getManager();
 
-    // $form is a Memeoirs\PaymillBundle\Form\PaymillType
-    $form = $this->get('form.factory')->create('jms_choose_payment_method', null, array(
-        'allowed_methods' => array('paymill'),
-        'default_method'  => 'paymill',
-        'amount'          => $order->getAmount(),
-        'currency'        => $order->getCurrency()
-    ));
+        // In a real world app, instead of instantiating an Order, you will
+        // probably retrieve it from the database
+        $order = new Order;
+        $order->setAmount(50);
+        $order->setCurrency('EUR');
 
-    return $this->render('AcmeDemoBundle::checkout.html.twig', array(
-        'form'  => $form->createView(),
-        'order' => $order,
-    ));
+        $form = $this->getForm($order->getAmount(), $order->getCurrency());
+
+        return $this->render('AcmeDemoBundle::checkout.html.twig', array(
+            'form'  => $form->createView(),
+            'order' => $order,
+        ));
+    }
 }
 ```
 
@@ -142,7 +146,7 @@ The twig template:
 
   <input type="submit" class="btn btn-success"
     value="Pay {{ order.amount }} {{ order.currency }}" />
-  <div class="payment-errors"></div>
+  <div class="paymill-errors"></div>
 </form>
 ```
 
@@ -153,8 +157,8 @@ memeoirs_paymill:
     initialize_template: AcmeDemoBundle::init_paymill.html.twig
 ```
 
-## Handling form submission
-When the user clicks the *buy* button, an Ajax request is made to paymill's servers containing the credit card information. The response to this request is a unique *token*. The form will then be submitted, excluding the credit card information but including the *token*.
+## Accepting the payment
+When the user clicks the *buy* button, an Ajax request is made to paymill's servers containing the credit card information. The response to this request is a unique *token*. The form is then submitted through Ajax, excluding the credit card information but including the *token*.
 
 You'll handle the form submission in the same controller action that renders the form:
 
@@ -168,18 +172,18 @@ public function checkoutAction ()
         $form->bind($this->getRequest());
 
         if ($form->isValid()) {
-            // Create a PaymentInstruction and associate it with the order
-            $ppc = $this->get('payment.plugin_controller');
-            $ppc->createPaymentInstruction($instruction = $form->getData());
+            $instruction = $this->createPaymentInstruction($form);
             $order->setPaymentInstruction($instruction);
-
-            $em = $this->getDoctrine()->getManager();
             $em->persist($order);
             $em->flush($order);
 
-            return $this->redirect($this->generateUrl('checkout_complete', array(
-                'id' => $order->getId(),
-            )));
+            // completePayment triggers a call to Paymill's API that creates the
+            // the payment. It returns a JSON response that indicates success or
+            // error. In the case of a successful operation the user will be
+            // redirected (in javascript) to 'orders_thankyou'.
+            return $this->completePayment($instruction, 'orders_thankyou', array(
+                'id' => $order->getId()
+            ));
         }
     }
 
@@ -187,54 +191,6 @@ public function checkoutAction ()
         'form'  => $form->createView(),
         'order' => $order,
     ));
-}
-
-```
-
-## Accepting the payment
-In the previous step, the *token* obtained on the client-side was saved (encrypted) in the database and the user was redirected to `checkout_complete`. In the controller action for that route, the *token* is used to tell Paymill to accept the payemnt.
-
-```yml
-// app/config/routing.yml
-checkout_complete:
-    pattern:  /complete/{id}
-    defaults: { _controller: AcmeDemoBundle:Orders:complete }
-```
-
-```php
-// Acme\DemoBundle\Controller\OrdersController
-use JMS\Payment\CoreBundle\PluginController\Result;
-
-public function completeAction ($id)
-{
-    $repository = $this->getDoctrine()->getManager()
-            ->getRepository('MemeoirsPaymillExampleBundle:Order');
-    if (!$order = $repository->find($id)) {
-        throw $this->createNotFoundException("Order $id not found");
-    }
-
-    // retrieve an existing payment or create a new one
-    $ppc = $this->get('payment.plugin_controller');
-    $instruction = $order->getPaymentInstruction();
-    if (null === $pendingTransaction = $instruction->getPendingTransaction()) {
-        $amount = $instruction->getAmount() - $instruction->getDepositedAmount();
-        $payment = $ppc->createPayment($instruction->getId(), $amount);
-    } else {
-        $payment = $pendingTransaction->getPayment();
-    }
-
-    // the following line queries Paymill's API to accept the payment
-    $result = $ppc->approveAndDeposit($payment->getId(), $payment->getTargetAmount());
-
-    if (Result::STATUS_SUCCESS === $result->getStatus()) {
-        // Payment was successful. Money was transfered to you paymill account.
-        // Redirect the user to a confirmation page.
-        return $this->redirect($this->generateUrl('thankyou', array(
-            'id' => $order->getId(),
-        )));
-    } else {
-        throw new \RuntimeException('Transaction was not successful: '.$result->getReasonCode());
-    }
 }
 
 ```
@@ -252,18 +208,12 @@ public function checkoutAction ()
     $email = 'user@example.com';
     $name = 'John Doe';
 
-    $form = $this->get('form.factory')->create('jms_choose_payment_method', null, array(
-        // ...
-
-        'predefined_data' => array(
-            'paymill' => array(
-                'client' => array(
-                    'email'       => $email,
-                    'description' => $name,
-                ),
-                'description' => $orderDescription
-            ),
+    $form = $this->getForm($order->getAmount(), $order->getCurrency(), array(
+        'client' => array(
+            'email' => 'user2@example.com',
+            'description' => 'John Doe',
         ),
+        'description' => 'Two baskets of apples'
     ));
 
     // ...
@@ -284,7 +234,7 @@ The `paymill:webhook:list` command retrieves the list of the most recent webhook
 
     app/console paymill:webhook:list
 
-You can filter and paginate the results using a set of filters formatted as an HTTP query string. See [here](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#list-webhooks) for the list of all available filters. To retrieve the second page of results ordered chronologically:
+You can filter and paginate the results using a set of filters formatted as a HTTP query string. See [here](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#list-webhooks) for the list of all available filters. To retrieve the second page of results ordered chronologically:
 
     app/console paymill:webhook:list "count=10&offset=10&order=created_at_asc"
 

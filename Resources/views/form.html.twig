@@ -40,3 +40,15 @@
       autocomplete="off" data-numeric=""/>
   </div>
 {% endblock %}
+
+{% block form_errors %}
+{% spaceless %}
+  <div class="paymill-errors"{% if errors|length == 0 %} style="display:none;"{% endif %}>
+    <ul>
+      {% for error in errors %}
+        <li class="alert alert-error">{{ error.message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endspaceless %}
+{% endblock form_errors %}

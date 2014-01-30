@@ -1,5 +1,5 @@
 /* hide the radio button for chosing payment methods */
-.paymill > div:first-child > div:first-child {
+#jms_choose_payment_method > *:not(#jms_choose_payment_method_data_paymill):not(input) {
   display: none;
 }
 
@@ -136,4 +136,12 @@
 .paymill-number.amex .card-icon {
   background-repeat: no-repeat;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAYAAADskT9PAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABR0RVh0Q3JlYXRpb24gVGltZQA2LzMvMTLlp73NAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAABJ9JREFUSIm1lU2IZFcVx3/nvo+qro/uqZ6eyWQ6M3GjGcKY0CCIqCiO40IXCuIiZNEuFHSlK0HdugyYvSC4EEFxEUSDRJRIcGVIeiZmHKIZM90zE/qrurrqVdd79557XLzq6m6mV9I+uLzLuffd83v3/M85YmYAfPu14TngZWCV/+/zC+D7P7vZ3QNID60h6MvtpltdvpjRTAUHiJyNRzOIwCQYDzb9ajGJAN88AaBeVzu9hL19T1QjOSvvh+eb4RKhMyfsD3X1MYDgA4Mh5ImQOoGz9U80qCqjUiP4MLPPALwPlKNAqYqY4QREBKPWiBwSHYLZ0dyizdaEo29me6wGwAlkKeHI/xFAWZSsLDb4+spFBGg3EjaHFe1GQp44+mNPr5XRH3uAE/OL3Zyi0npf4em1M0al0mul9MeBTp7MeH70+w2CZDMAdxzga88t8uYHQ954bw8DfvfmJsMDZW1jxJ/f2WGn8Lz1nyGpCDsjj0bQCP1x4E/v7PLqrW0WWhlvb4z41+YBozLyx1tb/OVun+3Cs1N4JuOS4PWUEJSe/Yly596A1lzCo72S+dzxz4cjzCDB0GAEr6gZqpG1+0Mw49PXFvFVAIwsgb/d3uLKE23eezgid8bKU21eXdviC9eXCJWi7hQNaIy0c+Ebn3oSN83BLz63BECeJlShQ54lfPxKl0mlLHZyPnetV4feCTeunydPHQ/6Jd+6cYVbGwXXnmwB0JlL+dL183RbKRrt9BsQ5/jBr/+NkzpdBCFqRL2eEJnFiBk4V0fvsJDJNG1jjCSJI0abiVIEVCPiHCaOYPI4QBQjitQHOwEn+Innpy88w+ZgAgiNzNHMascTHym9Mt+qBbU/9jSyhPlWytagBOCp83Ns7BwAsDybCz/+7fuPi1BDxKIRBWw6fBXYHFWs3d8nUtvefVTw7qOC1+9ss7w0xyt//5DXbm+xvDTH+1tj1taH0/3C+l7J2gf7XDjX5PU7u6zvTFhebFKNy8cBQlC8V4Kv3/UI+KCEMqAxomrc29jnaq/Bww9H/OHtTb78/EXKccX97QPuPRgSKq2FppHL8zkrH5nnV39d57PP9Lg0n/OT39xFNZ4C4BVfBqoqzABUjQvdBs8+PY+qEaNx4/kL5Jnjhc9fJTPjrfv73Fx5gsvnGnzlE5f42OUOz17totGYaOTAR25cX2JvElCLfOfm0+ihpjhRihWvEM2hwSGJEIHv/vw2WoZp1ZOjBiW1SDHDpa4WWDQww8zq1E0dGiLiBCKoD4DjmP/j3TBQRSPRBEkEcVJrotKZ0sE4rLLIofIF9RFMjy1MdVVNbWpYNEwhxkDMZm5PdMM63lWYAfxvDclONdUA9e3EYxqQ7JM/TLvdbqOz/NFfJo3WVzMEbPp3Z9URbVovBDyGluNXdu/948WiKMq01+slIYTW3vrdl+YWLp0n7XzmjNyezhKGbwy3119qZHkrz/OQDgYD2u22DQeDrcl4/D0gW1hYwHuPqqKq5HnOwcEBaZrinCNJEsqypNPpUJYljUYDM2N3d5dms0kIAeccIkKz2SRJEkSEfr+PiPg8z4uiKCyEwH8B2eOgDB31KzgAAAAASUVORK5CYII=);
+}
+
+.paymill-errors ul {
+  list-style: none;
+  margin: 0;
+}
+.paymill-errors ul li {
+  margin: 0;
 }

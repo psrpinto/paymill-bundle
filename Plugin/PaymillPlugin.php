@@ -59,10 +59,12 @@ class PaymillPlugin extends AbstractPlugin
             case 'open':
             case 'pending':
                 $transaction->setReferenceNumber($apiTransaction->getId());
+                $transaction->setResponseCode(PluginInterface::RESPONSE_CODE_PENDING);
+                $transaction->setReasonCode(PluginInterface::REASON_CODE_SUCCESS);
                 throw new PaymentPendingException('Payment is still pending');
 
             default:
-                $ex = new FinancialException('Transaction is not closed: '.$apiTransaction->getStatus());
+                $ex = new FinancialException('Transaction failed');
                 $ex->setFinancialTransaction($transaction);
                 $transaction->setResponseCode('Failed');
                 $transaction->setReasonCode($apiTransaction->getStatus());

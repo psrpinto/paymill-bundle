@@ -6,7 +6,7 @@ var Paymill = {
         expiry: '.paymill-expiry input',
         holder: '.paymill-holder input',
         cvc:    '.paymill-cvc input',
-        errors: '.paymill-errors',
+        errors: 'form > .paymill-errors',
         token:  'input[name="jms_choose_payment_method[data_paymill][token]"]'
     },
 
@@ -30,6 +30,8 @@ var Paymill = {
 
         $(this.els.number).keyup(Util.bind(this.setCardType, this));
         $(this.els.form).submit(Util.bind(this.onSubmit, this));
+
+        this.setCardType();
     },
 
     /**
@@ -97,17 +99,39 @@ var Paymill = {
     /**
      * Received a response from the Paymill API.
      */
-    onResponse: function (error, result) {
+    onResponse: function (error, paymillResponse) {
         if (error) {
             this.error(error.apierror);
+            this.enableSubmit();
         } else {
-            this.error('');
-            var form = $(this.els.form);
-            form.find(this.els.token).val(result.token);
-            form.get(0).submit();
+            this.submitForm(paymillResponse);
         }
+    },
 
-        this.enableSubmit();
+    /**
+     * Submit the form through Ajax
+     */
+    submitForm: function(paymillResponse) {
+        var form = $(this.els.form);
+        form.find(this.els.token).val(paymillResponse.token);
+
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: form.serialize(),
+            success: Util.bind(function(data) {
+                if (data.error) {
+                    this.error(data.message);
+                    this.enableSubmit();
+                } else {
+                    window.location.href = data.successUrl;
+                }
+            }, this),
+            error: Util.bind(function(data) {
+                this.error('Something went wrong. Please try again');
+                this.enableSubmit();
+            }, this)
+        });
     },
 
     /**
@@ -116,8 +140,12 @@ var Paymill = {
     enableSubmit: function (enable) {
         if (enable === undefined || enable) {
             $(this.els.submit).removeAttr('disabled');
+            if (this.submitBtnText) {
+                $(this.els.submit).val(this.submitBtnText);
+            }
         } else {
-            $(this.els.submit).attr('disabled', 'disabled');
+            this.submitBtnText = $(this.els.submit).val();
+            $(this.els.submit).attr('disabled', 'disabled').val('Processing payment...');
         }
     },
 
@@ -125,7 +153,17 @@ var Paymill = {
      * Show an error message
      */
     error: function (message) {
-        $(this.els.errors).text(message);
+        if (message == '') {
+            $(this.els.errors).hide();
+            return;
+        }
+
+        $ul = $(this.els.errors).find('ul');
+        $ul.html('');
+        $ul.append(
+            '<li class="alert alert-error">' + message + '</li>'
+        );
+        $(this.els.errors).show();
     }
 };
 
