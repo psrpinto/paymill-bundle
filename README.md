@@ -26,7 +26,7 @@ Add the following to your `composer.json`:
 ```json
 {
     "require": {
-        "memeoirs/paymill-bundle": "0.1.*"
+        "memeoirs/paymill-bundle": "0.2.*"
     }
 }
 ```
@@ -146,7 +146,8 @@ The twig template:
 
   <input type="submit" class="btn btn-success"
     value="Pay {{ order.amount }} {{ order.currency }}" />
-  <div class="paymill-errors"></div>
+
+  {{ form_errors(form) }}
 </form>
 ```
 
