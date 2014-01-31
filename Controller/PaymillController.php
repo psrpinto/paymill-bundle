@@ -49,7 +49,7 @@ abstract class PaymillController extends Controller
         50600 => "Duplicate transaction.",
     );
 
-    protected function getForm($amount, $currency, $options = array())
+    protected function getPaymillForm($amount, $currency, $options = array())
     {
         return $this->get('form.factory')->create('jms_choose_payment_method', null, array(
             'allowed_methods' => array('paymill'),

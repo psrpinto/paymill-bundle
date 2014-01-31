@@ -53,6 +53,14 @@ var Paymill = {
      * Called when the submit button is clicked
      */
     onSubmit: function () {
+        var isPaymill = $('#jms_choose_payment_method_method')
+            .find("input[value='paymill']")
+            .prop('checked');
+        if (!isPaymill) {
+            // some other payment method was selected
+            return;
+        }
+
         $(this.els.form).find('input').removeClass('error');
         this.error('');
         this.enableSubmit(false);

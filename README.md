@@ -117,7 +117,7 @@ class OrdersController extends PaymillController
         $order->setAmount(50);
         $order->setCurrency('EUR');
 
-        $form = $this->getForm($order->getAmount(), $order->getCurrency());
+        $form = $this->getPaymillForm($order->getAmount(), $order->getCurrency());
 
         return $this->render('AcmeDemoBundle::checkout.html.twig', array(
             'form'  => $form->createView(),
@@ -209,7 +209,7 @@ public function checkoutAction ()
     $email = 'user@example.com';
     $name = 'John Doe';
 
-    $form = $this->getForm($order->getAmount(), $order->getCurrency(), array(
+    $form = $this->getPaymillForm($order->getAmount(), $order->getCurrency(), array(
         'client' => array(
             'email' => 'user2@example.com',
             'description' => 'John Doe',
