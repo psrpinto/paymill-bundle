@@ -7,15 +7,10 @@ Straight forward integration of [Paymill](http://paymill.com) payments into Symf
 
 * Plug-and-play credit card form, inspired by Stripe's Checkout (optional)
 * High level API to create payments
+* [Webhooks](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#webhooks)
 * CRUD access to Paymill's API from the command line using Symfony commands
 * Support for Paymill's [client resources](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#clients)
 * Uses [Paymill's PHP library](https://github.com/Paymill/Paymill-PHP) under the hood
-
-## Coming soon (PRs welcome!)
-
-* [Webhooks](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#webhooks)
-* [Refunds](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#refunds)
-* [Preauthorizations](https://www.paymill.com/it-it/documentation-3/reference/api-reference/#preauthorizations)
 
 # Setup
 *This bundle uses functionality provided by [JMSPaymentCoreBundle](https://github.com/schmittjoh/JMSPaymentCoreBundle) which allows you to add new payment backends (e.g. Paypal) with minimum changes to your code. These instructions will also guide you through the installation of that bundle.*
@@ -45,6 +40,14 @@ $bundles = array(
     new Memeoirs\PaymillBundle\MemeoirsPaymillBundle(),
     // ...
 );
+```
+
+Include `routing.yml` in your routing file (for webhooks):
+
+```yml
+// app/config/routing.yml
+memeoirs_paymill:
+    resource: "@MemeoirsPaymillBundle/Resources/config/routing.yml"
 ```
 
 Finally, you need to tell *Assetic* about this bundle:
@@ -224,6 +227,19 @@ public function checkoutAction ()
 ## Changing how the form looks
 TODO
 
+# Webhooks
+A webhook is a controller action to which Paymill POSTs events. As of now, this bundle is able to automatically handle  notifications for the following event types: `transaction.succeeded` and `refund.succeeded`.
+
+The only thing you need to do is create a webhook using the provided console command (see the *Console* section below):
+
+    app/console paymill:webhook:create --url=https://myapp.com/paymill/hook \
+        --event=transaction.succeeded --event=refund.succeeded
+
+Everytime a successful transaction or refund happens, Paymill will post a request to the URL you provided, which maps to the [MemeoirsPaymillBundle:Webhooks:hook](Controller/WebhooksController.php) controller action (make sure you included [routing.yml](Resources/config/routing.yml) in your routing file).
+
+# Listeners
+TODO
+
 # Console
 *Work in progress. Currently only webhooks are supported*
 
@@ -262,9 +278,6 @@ To create an inactive webhook use the `--disable` option:
 The `paymill:webhook:delete` command deletes webhooks. It takes a series of space-separated webhook ids as arguments:
 
     app/console paymill:webhook:delete hook_c945c39154ab3b3e1ef6 hook_b4ae6600de00b9f69afa
-
-# Listeners
-TODO
 
 # License
 [MIT](Resources/meta/LICENSE)

@@ -9,6 +9,11 @@ services:
        tags:
             - { name: payment.plugin }
 
+    memeoirs_paymill.event_plugin:
+       class: Memeoirs\PaymillBundle\Plugin\PaymillEventPlugin
+       tags:
+            - { name: payment.plugin }
+
     memeoirs_paymill.paymill_type:
         class: Memeoirs\PaymillBundle\Form\PaymillType
         tags:
