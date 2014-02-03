@@ -1,13 +1,14 @@
 var Paymill = {
     els: {
-        form:   '.paymill',
-        submit: '.paymill input[type=submit]',
-        number: '.paymill-number input',
-        expiry: '.paymill-expiry input',
-        holder: '.paymill-holder input',
-        cvc:    '.paymill-cvc input',
-        errors: 'form > .paymill-errors',
-        token:  'input[name="jms_choose_payment_method[data_paymill][token]"]'
+        form:          '.paymill',
+        submit:        '.paymill input[type=submit]',
+        number:        '.paymill-number input',
+        expiry:        '.paymill-expiry input',
+        holder:        '.paymill-holder input',
+        cvc:           '.paymill-cvc input',
+        errors:        'form > .paymill-errors',
+        token:         'input[name="jms_choose_payment_method[data_paymill][token]"]',
+        methodPaymill: "#jms_choose_payment_method_method input[value='paymill']"
     },
 
     /**
@@ -31,6 +32,7 @@ var Paymill = {
         $(this.els.number).keyup(Util.bind(this.setCardType, this));
         $(this.els.form).submit(Util.bind(this.onSubmit, this));
 
+        $(this.els.methodPaymill).prop('checked', 'checked');
         this.setCardType();
     },
 
@@ -53,10 +55,7 @@ var Paymill = {
      * Called when the submit button is clicked
      */
     onSubmit: function () {
-        var isPaymill = $('#jms_choose_payment_method_method')
-            .find("input[value='paymill']")
-            .prop('checked');
-        if (!isPaymill) {
+        if (!$(this.els.methodPaymill).prop('checked')) {
             // some other payment method was selected
             return;
         }
