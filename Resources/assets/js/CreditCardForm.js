@@ -13,10 +13,10 @@ var Paymill = {
 
     /**
      * @param string amount   "4900" for 49,00 EUR
-     * @param string currency ISO 4217 i.e. "EUR"
+     * @param string currency ISO 4217 string, i.e. "EUR"
      */
     init: function (options) {
-        this.amount   = options.amount;
+        this.amount   = Number(options.amount);
         this.currency = options.currency;
 
         $('[data-numeric]').payment('restrictNumeric');
