@@ -3,13 +3,13 @@
 namespace Memeoirs\PaymillBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use JMS\Payment\CoreBundle\PluginController\Result;
 
 abstract class PaymillController extends Controller
 {
-    private $errorCodes = array(
+    private $errorMessages = array(
         10001 => "General undefined response.",
         10002 => "Still waiting on something.",
         20000 => "General success response.",
@@ -93,16 +93,23 @@ abstract class PaymillController extends Controller
         $result = $ppc->approveAndDeposit($payment->getId(), $payment->getTargetAmount());
         if (Result::STATUS_SUCCESS === $result->getStatus()) {
             // payment was successful
-            return new Response(json_encode(array(
+            $response = array(
                 'error' => false,
                 'successUrl' => $this->generateUrl($route, $routeParams)
-            )), 200, array('Content-Type' => 'application/json'));
+            );
         } else {
-            $transaction = $result->getFinancialTransaction();
-            return new Response(json_encode(array(
+            $response = array(
                 'error' => true,
-                'message' => $this->errorCodes[$transaction->getResponseCode()],
-            )), 200, array('Content-Type' => 'application/json'));
+                'message' => 'Payment failed.'
+            );
+
+            // We might have a better error message
+            $responseCode = $result->getFinancialTransaction()->getResponseCode();
+            if (null !== $responseCode && isset($this->errorMessages[$responseCode])) {
+                $response['message'] = $this->errorMessages[$responseCode];
+            }
         }
+
+        return new JsonResponse($response);
     }
 }
