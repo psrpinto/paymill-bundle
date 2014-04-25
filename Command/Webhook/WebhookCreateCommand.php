@@ -73,7 +73,8 @@ EOT
         $resource->setEventTypes($events ? $events : Webhook::$events);
 
         $this->getApi()->create($resource);
-        $resource = $this->getApi()->getLastResponse()['body']['data'];
+        $resource = $this->getApi()->getLastResponse();
+        $resource = $resource['body']['data'];
 
         $table = $this->getHelperSet()->get('table');
         $this->formatTableRow($resource, $table, false);
