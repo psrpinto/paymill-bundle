@@ -5,6 +5,7 @@ namespace Memeoirs\PaymillBundle\Plugin;
 use JMS\Payment\CoreBundle\Plugin\AbstractPlugin,
     JMS\Payment\CoreBundle\Model\FinancialTransactionInterface,
     JMS\Payment\CoreBundle\Plugin\PluginInterface,
+    JMS\Payment\CoreBundle\Plugin\Exception\InvalidPaymentInstructionException,
     JMS\Payment\CoreBundle\Plugin\Exception\FunctionNotSupportedException,
     JMS\Payment\CoreBundle\Plugin\Exception\PaymentPendingException,
     JMS\Payment\CoreBundle\Plugin\Exception\FinancialException;
@@ -27,16 +28,54 @@ class PaymillPlugin extends AbstractPlugin
     {
         try {
             $data   = $transaction->getExtendedData();
-            $client = $this->api->getClient($data->has('client') ? $data->get('client') : null);
 
-            $apiTransaction = new \Paymill\Models\Request\Transaction();
-            $apiTransaction
-                ->setToken($data->get('token'))
-                ->setClient($client)
-                ->setAmount($transaction->getRequestedAmount() * 100) // in cents
-                ->setCurrency($transaction->getPayment()->getPaymentInstruction()->getCurrency())
-                ->setDescription($data->has('description') ? $data->get('description') : null)
-            ;
+            if ($data->has('client')) {
+                if (!empty($data['id'])) {
+                    $client =  $data['id'];
+                } else {
+                    $client = $this->api->getClient($data->get('client'));
+                }
+            } else {
+                $client = null;
+            }
+            $description = $data->has('description') ? $data->get('description') : null;
+            $currency = $transaction->getPayment()->getPaymentInstruction()->getCurrency();
+            $amount = $transaction->getRequestedAmount() * 100;
+
+            if ($data->has('offer')) {
+                // manage subscription
+                if (!$client) {
+                    throw new InvalidPaymentInstructionException('Client needs to be set for a subscription');
+                }
+
+                $offer = $data->get('offer');
+                if (empty($offer['id']) && (empty($offer['name']) || empty($offer['interval']))) {
+                    $msg = 'Offer id or name and interval needs to be set for a subscription';
+                    throw new InvalidPaymentInstructionException($msg);
+                }
+
+                if (!empty($offer['id'])) {
+                        $offer['id'];
+                } else {
+                    $offer = $this->api->getOffer($offer['name'], $currency, $amount, $offer['interval']);
+                }
+                $payment = $this->api->getPayment($client, $data->get('token'));
+
+                $apiTransaction = new \Paymill\Models\Request\Subscription();
+                $apiTransaction->setClient($client)
+                    ->setOffer($offer)
+                    ->setPayment($payment);
+                ;
+            } else {
+                $apiTransaction = new \Paymill\Models\Request\Transaction();
+                $apiTransaction
+                    ->setToken($data->get('token'))
+                    ->setClient($client)
+                    ->setAmount($amount) // in cents
+                    ->setCurrency($currency)
+                    ->setDescription($data->has('description') ? $data->get('description') : null)
+                ;
+            }
 
             $apiTransaction = $this->api->create($apiTransaction);
 
@@ -48,7 +87,15 @@ class PaymillPlugin extends AbstractPlugin
             throw $ex;
         }
 
-        switch ($apiTransaction->getStatus()) {
+        $status = ($data->has('offer')) ? 'offer' : $apiTransaction->getStatus();
+        switch ($status) {
+            case 'offer':
+                $transaction->setReferenceNumber($apiTransaction->getId());
+                $transaction->setProcessedAmount($amount / 100);
+                $transaction->setResponseCode(PluginInterface::RESPONSE_CODE_SUCCESS);
+                $transaction->setReasonCode(PluginInterface::REASON_CODE_SUCCESS);
+                break;
+
             case 'closed':
                 $transaction->setReferenceNumber($apiTransaction->getId());
                 $transaction->setProcessedAmount($apiTransaction->getAmount() / 100);
