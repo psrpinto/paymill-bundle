@@ -48,4 +48,63 @@ class PaymillApi extends Request
             return $client->getId();
         }
     }
+
+    /**
+     * Get the offer for future requests.
+     * If no offer is found, it will be created
+     *
+     * @param string $name the offer name
+     * @param string $currency
+     * @param int $amount
+     * @param string $interval
+     * @access public
+     * @return string the offer id
+     */
+    public function getOffer($name, $currency, $amount, $interval)
+    {
+        $offer = new \Paymill\Models\Request\Offer();
+        $offer->setFilter(
+            [
+                'name' => $name,
+                'currency' => $currency,
+                'amount' => $amount,
+                'interval' => $interval,
+            ]
+        );
+
+        $offer = $this->getAll($offer);
+        if ($offer) {
+            return $offer[0]['id'];
+        } else {
+            // client not found, create a new one
+            $offer = new \Paymill\Models\Request\Offer();
+            $offer
+                ->setAmount($amount)
+                ->setCurrency($currency)
+                ->setInterval($interval)
+                ->setName($name);
+            ;
+
+            $offer = $this->create($offer);
+            return $offer->getId();
+        }
+    }
+
+    /**
+     * get a payment for a user + token
+     *
+     * @param string $clientId
+     * @param string $tokenId
+     * @access public
+     * @return string
+     */
+    public function getPayment($clientId, $tokenId)
+    {
+        $payment = new \Paymill\Models\Request\Payment();
+        $payment->setToken($tokenId)
+            ->setClient($clientId);
+
+        $response = $this->create($payment);
+        return $response->getId();
+    }
 }
