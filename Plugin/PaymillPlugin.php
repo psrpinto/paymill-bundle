@@ -30,8 +30,9 @@ class PaymillPlugin extends AbstractPlugin
             $data   = $transaction->getExtendedData();
 
             if ($data->has('client')) {
-                if (!empty($data['id'])) {
-                    $client =  $data['id'];
+                $client = $data->get('client');
+                if (!empty($client['id'])) {
+                    $client =  $client['id'];
                 } else {
                     $client = $this->api->getClient($data->get('client'));
                 }
