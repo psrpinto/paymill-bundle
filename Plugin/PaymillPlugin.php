@@ -56,17 +56,23 @@ class PaymillPlugin extends AbstractPlugin
                 }
 
                 if (!empty($offer['id'])) {
-                        $offer['id'];
+                    $offer = $offer['id'];
                 } else {
                     $offer = $this->api->getOffer($offer['name'], $currency, $amount, $offer['interval']);
                 }
                 $payment = $this->api->getPayment($client, $data->get('token'));
 
-                $apiTransaction = new \Paymill\Models\Request\Subscription();
-                $apiTransaction->setClient($client)
-                    ->setOffer($offer)
-                    ->setPayment($payment);
-                ;
+                $apiSubTransaction = $this->api->getSubscription($client, $offer, $payment);
+
+                $apiTransaction = $this->api->getTransactionFromPayment($payment);
+
+                if ($apiTransaction instanceof \Paymill\Models\Response\Error) {
+                    $ex = new FinancialException('Transaction failed');
+                    $ex->setFinancialTransaction($transaction);
+                    $transaction->setResponseCode('Failed');
+                    $transaction->setReasonCode($apiTransaction->getResponseCode());
+                    throw $ex;
+                }
             } else {
                 $apiTransaction = new \Paymill\Models\Request\Transaction();
                 $apiTransaction
@@ -76,9 +82,10 @@ class PaymillPlugin extends AbstractPlugin
                     ->setCurrency($currency)
                     ->setDescription($data->has('description') ? $data->get('description') : null)
                 ;
+
+                $apiTransaction = $this->api->create($apiTransaction);
             }
 
-            $apiTransaction = $this->api->create($apiTransaction);
 
         } catch (PaymillException $e) {
             $ex = new FinancialException($e->getErrorMessage());
@@ -88,15 +95,8 @@ class PaymillPlugin extends AbstractPlugin
             throw $ex;
         }
 
-        $status = ($data->has('offer')) ? 'offer' : $apiTransaction->getStatus();
+        $status = $apiTransaction->getStatus();
         switch ($status) {
-            case 'offer':
-                $transaction->setReferenceNumber($apiTransaction->getId());
-                $transaction->setProcessedAmount($amount / 100);
-                $transaction->setResponseCode(PluginInterface::RESPONSE_CODE_SUCCESS);
-                $transaction->setReasonCode(PluginInterface::REASON_CODE_SUCCESS);
-                break;
-
             case 'closed':
                 $transaction->setReferenceNumber($apiTransaction->getId());
                 $transaction->setProcessedAmount($apiTransaction->getAmount() / 100);

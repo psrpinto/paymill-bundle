@@ -107,4 +107,68 @@ class PaymillApi extends Request
         $response = $this->create($payment);
         return $response->getId();
     }
+
+    public function getSubscription($clientId, $offerId, $paymentId)
+    {
+        $client = new \Paymill\Models\Request\Client();
+        $client->setId($clientId);
+        $client = $this->getAll($client);
+
+        $subscriptionId = null;
+        if (!empty($client['subscription'])) {
+            foreach ($client['subscription'] as $subscription) {
+                if ($subscription['offer']['id'] == $offerId) {
+                    $subscriptionId = $subscription['id'];
+                    break;
+                }
+            }
+        }
+
+        $apiSubTransaction = new \Paymill\Models\Request\Subscription();
+        $apiSubTransaction->setClient($clientId)
+            ->setOffer($offerId)
+            ->setPayment($paymentId);
+
+        if ($subscriptionId !== null) {
+            $apiSubTransaction->setId($subscriptionId);
+            $apiSubTransaction = $this->update($apiSubTransaction);
+        } else {
+            $apiSubTransaction = $this->create($apiSubTransaction);
+        }
+
+        return $apiSubTransaction;
+    }
+
+    /**
+     * getTransactionFromPayment
+     *
+     * This weird implementation is due to this bug:https://github.com/paymill/paymill-php/issues/69
+     *
+     * @param mixed $payment
+     * @access public
+     * @return void
+     */
+    public function getTransactionFromPayment($payment)
+    {
+        $paymillTransaction = new \Paymill\Models\Request\Transaction();
+        $paymillTransaction->setPayment($payment);
+        $apiTransactionList = $this->getAll($paymillTransaction);
+        $apiTransaction = array_pop($apiTransactionList);
+
+        $response = array(
+            'header' => array(
+                'status' => 200,
+            ),
+            'body' => array(
+                'data' => $apiTransaction,
+            ),
+        );
+
+
+
+        $handler = new \Paymill\Services\ResponseHandler;
+        $response = $handler->convertResponse($response, 'Transaction/ ');
+
+        return $response;
+    }
 }
