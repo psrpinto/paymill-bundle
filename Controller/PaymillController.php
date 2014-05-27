@@ -33,6 +33,7 @@ abstract class PaymillController extends Controller
         40403 => "Currency not allowed.",
         50000 => "General problem with backend.",
         50001 => "Country blacklisted.",
+        50002 => "IP address blacklisted.",
         50100 => "Technical error with credit card.",
         50101 => "Error limit exceeded.",
         50102 => "Card declined by authorization system.",
@@ -104,7 +105,8 @@ abstract class PaymillController extends Controller
             );
 
             // We might have a better error message
-            $responseCode = $result->getFinancialTransaction()->getResponseCode();
+            $responseCode = $result->getFinancialTransaction()->getReasonCode();
+            $response['code'] = $responseCode;
             if (null !== $responseCode && isset($this->errorMessages[$responseCode])) {
                 $response['message'] = $this->errorMessages[$responseCode];
             }
