@@ -10,7 +10,7 @@ class PaymillHelper extends Helper
     private $engine   = null;
     private $template = null;
 
-    public function __construct (EngineInterface $engine, $template)
+    public function __construct(EngineInterface $engine, $template)
     {
         $this->engine   = $engine;
         $this->template = $template;
@@ -22,7 +22,7 @@ class PaymillHelper extends Helper
      * @param  array $options Array containing the amount and currency
      * @return string
      */
-    public function initialize (array $options)
+    public function initialize(array $options)
     {
         return $this->engine->render($this->template, $options);
     }

@@ -29,7 +29,7 @@ class PaymillEventPlugin extends AbstractPlugin
         $transaction->setReasonCode(PluginInterface::REASON_CODE_SUCCESS);
     }
 
-    public function processes ($name)
+    public function processes($name)
     {
         return 'paymill_event' === $name;
     }

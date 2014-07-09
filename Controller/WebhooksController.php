@@ -155,7 +155,7 @@ class WebhooksController extends Controller
      * @param PaymentInstruction $instruction PaymentInstruction entity
      * @param string $name The new value for payment_system_name
      */
-    private function setPaymentSystemName ($instruction, $name)
+    private function setPaymentSystemName($instruction, $name)
     {
         $em = $this->getDoctrine()->getManager();
         $em->getConnection()->beginTransaction();
@@ -180,7 +180,7 @@ class WebhooksController extends Controller
      * @param Payment $payment Payment entity
      * @param integer $state   New state
      */
-    private function setPaymentState ($payment, $state)
+    private function setPaymentState($payment, $state)
     {
         $em = $this->getDoctrine()->getManager();
         $em->getConnection()->beginTransaction();

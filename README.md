@@ -208,10 +208,6 @@ public function checkoutAction ()
 {
     // ...
 
-    $orderDescription = 'Two baskets of apples';
-    $email = 'user@example.com';
-    $name = 'John Doe';
-
     $form = $this->getPaymillForm($order->getAmount(), $order->getCurrency(), array(
         'client' => array(
             'email' => 'user2@example.com',

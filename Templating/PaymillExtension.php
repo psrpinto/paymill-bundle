@@ -10,7 +10,7 @@ class PaymillExtension extends TwigExtension
     private $publicKey;
     private $container;
 
-    public function __construct (ContainerInterface $container, $publicKey)
+    public function __construct(ContainerInterface $container, $publicKey)
     {
         $this->container = $container;
         $this->publicKey = $publicKey;
@@ -19,7 +19,7 @@ class PaymillExtension extends TwigExtension
     /**
      * {@inheritdoc}
      */
-    public function getGlobals ()
+    public function getGlobals()
     {
         return array('paymill' => array(
             'public_key' => $this->publicKey
@@ -29,7 +29,7 @@ class PaymillExtension extends TwigExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions ()
+    public function getFunctions()
     {
         return array(
             'paymill_initialize' => new \Twig_Function_Method(
@@ -45,7 +45,7 @@ class PaymillExtension extends TwigExtension
      * @param string  $currency Currency
      * @return string
      */
-    public function renderInitialize ($amount, $currency)
+    public function renderInitialize($amount, $currency)
     {
         return $this->container->get('memeoirs_paymill.helper')->initialize(array(
             'amount'   => $amount,
@@ -56,7 +56,7 @@ class PaymillExtension extends TwigExtension
     /**
      * {@inheritdoc}
      */
-    public function getName ()
+    public function getName()
     {
         return 'paymill';
     }

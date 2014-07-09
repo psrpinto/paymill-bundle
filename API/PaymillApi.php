@@ -9,7 +9,7 @@ use Paymill\Request;
  */
 class PaymillApi extends Request
 {
-    public function __construct ($apiKey)
+    public function __construct($apiKey)
     {
         parent::__construct($apiKey);
     }
@@ -24,7 +24,7 @@ class PaymillApi extends Request
      * @return string Client id
      * @throws PaymillException
      */
-    public function getClient ($data)
+    public function getClient($data)
     {
         if (!is_array($data) || !isset($data['email'])) {
             return null;

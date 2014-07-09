@@ -15,7 +15,7 @@ class PaymillPlugin extends AbstractPlugin
 {
     private $api;
 
-    public function __construct ($api)
+    public function __construct($api)
     {
         $this->api = $api;
     }
@@ -23,7 +23,7 @@ class PaymillPlugin extends AbstractPlugin
     /**
      * {@inheritDoc}
      */
-    public function approveAndDeposit (FinancialTransactionInterface $transaction, $retry)
+    public function approveAndDeposit(FinancialTransactionInterface $transaction, $retry)
     {
         try {
             $data   = $transaction->getExtendedData();
@@ -77,7 +77,7 @@ class PaymillPlugin extends AbstractPlugin
     /**
      * {@inheritDoc}
      */
-    public function processes ($name)
+    public function processes($name)
     {
         return 'paymill' === $name;
     }

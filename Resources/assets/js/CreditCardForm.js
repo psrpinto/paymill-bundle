@@ -15,7 +15,7 @@ var Paymill = {
      * @param string amount   "4900" for 49,00 EUR
      * @param string currency ISO 4217 string, i.e. "EUR"
      */
-    init: function (options) {
+    init: function(options) {
         this.amount   = Number(options.amount);
         this.currency = options.currency;
 
@@ -25,7 +25,7 @@ var Paymill = {
         $(this.els.cvc).payment('formatCardCVC');
 
         // Remove previous errors when a field is changed
-        $(this.els.form).find('input').keyup(function () {
+        $(this.els.form).find('input').keyup(function() {
             $(this).removeClass('error');
         });
 
@@ -39,7 +39,7 @@ var Paymill = {
     /**
      * Show the card type icon according to the (partial) card number.
      */
-    setCardType: function () {
+    setCardType: function() {
         var number  = $(this.els.number).val();
         var $target = $('.paymill-number');
 
@@ -54,7 +54,7 @@ var Paymill = {
     /**
      * Called when the submit button is clicked
      */
-    onSubmit: function () {
+    onSubmit: function() {
         if (!$(this.els.methodPaymill).prop('checked')) {
             // some other payment method was selected
             return;
@@ -106,7 +106,7 @@ var Paymill = {
     /**
      * Received a response from the Paymill API.
      */
-    onResponse: function (error, paymillResponse) {
+    onResponse: function(error, paymillResponse) {
         if (error) {
             this.error(error.apierror);
             this.enableSubmit();
@@ -144,7 +144,7 @@ var Paymill = {
     /**
      * Enable or disable the submit button
      */
-    enableSubmit: function (enable) {
+    enableSubmit: function(enable) {
         if (enable === undefined || enable) {
             $(this.els.submit).removeAttr('disabled');
             if (this.submitBtnText) {
@@ -159,7 +159,7 @@ var Paymill = {
     /**
      * Show an error message
      */
-    error: function (message) {
+    error: function(message) {
         if (message == '') {
             $(this.els.errors).hide();
             return;
