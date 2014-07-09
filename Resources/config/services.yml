@@ -16,6 +16,7 @@ services:
 
     memeoirs_paymill.paymill_type:
         class: Memeoirs\PaymillBundle\Form\PaymillType
+        arguments: [@translator]
         tags:
             - { name: payment.method_form_type }
             - { name: form.type, alias: paymill }
