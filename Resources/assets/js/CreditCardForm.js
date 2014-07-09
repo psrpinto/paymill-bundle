@@ -135,7 +135,7 @@ var Paymill = {
                 }
             }, this),
             error: Util.bind(function(data) {
-                this.error('Something went wrong. Please try again');
+                this.error('Something went wrong. Please try again and contact us if the problem persists.');
                 this.enableSubmit();
             }, this)
         });
