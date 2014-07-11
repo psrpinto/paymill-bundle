@@ -12,16 +12,33 @@ use JMS\Payment\CoreBundle\Plugin\AbstractPlugin,
  */
 class PaymillEventPlugin extends AbstractPlugin
 {
+    /**
+     *
+     * @param FinancialTransactionInterface $transaction
+     * @param bool $retry
+     *
+     */
     public function approveAndDeposit(FinancialTransactionInterface $transaction, $retry)
     {
         $this->process($transaction);
     }
 
+    /**
+     *
+     * @param FinancialTransactionInterface $transaction
+     * @param bool $retry
+     *
+     */
     public function credit(FinancialTransactionInterface $transaction, $retry)
     {
         $this->process($transaction);
     }
 
+    /**
+     *
+     * @param FinancialTransactionInterface $transaction
+     *
+     */
     private function process(FinancialTransactionInterface $transaction)
     {
         $transaction->setProcessedAmount($transaction->getRequestedAmount());
@@ -29,6 +46,12 @@ class PaymillEventPlugin extends AbstractPlugin
         $transaction->setReasonCode(PluginInterface::REASON_CODE_SUCCESS);
     }
 
+    /**
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
     public function processes($name)
     {
         return 'paymill_event' === $name;

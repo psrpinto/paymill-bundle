@@ -6,17 +6,31 @@ use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
     Symfony\Component\OptionsResolver\OptionsResolverInterface,
     Symfony\Component\Validator\Constraints\NotBlank,
-    Symfony\Component\Form\FormInterface;
+    Symfony\Component\Form\FormInterface,
+    Symfony\Component\Translation\TranslatorInterface;
 
 class PaymillType extends AbstractType
 {
+    /**
+     * @var \Symfony\Component\Translation\TranslatorInterface translator
+     *
+     */
     private $translator;
 
-    public function __construct($translator)
+    /**
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
+    /**
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     *
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $tokenNotBlank = new NotBlank(array(
@@ -35,6 +49,11 @@ class PaymillType extends AbstractType
         ;
     }
 
+    /**
+     *
+     * @param OptionsResolverInterface $resolver
+     *
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -49,6 +68,10 @@ class PaymillType extends AbstractType
         ));
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getName()
     {
         return 'paymill';

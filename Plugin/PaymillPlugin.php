@@ -9,13 +9,21 @@ use JMS\Payment\CoreBundle\Plugin\AbstractPlugin,
     JMS\Payment\CoreBundle\Plugin\Exception\PaymentPendingException,
     JMS\Payment\CoreBundle\Plugin\Exception\FinancialException;
 
+use Memeoirs\PaymillBundle\API\PaymillApi;
 use Paymill\Services\PaymillException;
 
 class PaymillPlugin extends AbstractPlugin
 {
+    /**
+     * @var \Memeoirs\PaymillBundle\API\PaymillApi api
+     *
+     */
     private $api;
 
-    public function __construct($api)
+    /**
+     * @param PaymillApi $api
+     */
+    public function __construct(PaymillApi $api)
     {
         $this->api = $api;
     }

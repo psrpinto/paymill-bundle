@@ -22,7 +22,7 @@ class PaymillApi extends Request
      * @param array $data Array containing a mandatory 'email' key and an
      *                    optional 'description' key.
      * @return string Client id
-     * @throws PaymillException
+     * @throws \Paymill\Services\PaymillException
      */
     public function getClient($data)
     {
