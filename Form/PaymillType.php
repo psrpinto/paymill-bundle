@@ -13,7 +13,6 @@ class PaymillType extends AbstractType
 {
     /**
      * @var \Symfony\Component\Translation\TranslatorInterface translator
-     *
      */
     private $translator;
 
@@ -26,10 +25,8 @@ class PaymillType extends AbstractType
     }
 
     /**
-     *
      * @param FormBuilderInterface $builder
      * @param array $options
-     *
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -50,9 +47,7 @@ class PaymillType extends AbstractType
     }
 
     /**
-     *
      * @param OptionsResolverInterface $resolver
-     *
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -69,7 +64,6 @@ class PaymillType extends AbstractType
     }
 
     /**
-     *
      * @return string
      */
     public function getName()

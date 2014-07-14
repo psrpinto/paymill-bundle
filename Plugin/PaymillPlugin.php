@@ -16,7 +16,6 @@ class PaymillPlugin extends AbstractPlugin
 {
     /**
      * @var \Memeoirs\PaymillBundle\API\PaymillApi api
-     *
      */
     private $api;
 

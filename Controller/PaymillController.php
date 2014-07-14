@@ -19,7 +19,7 @@ abstract class PaymillController extends Controller
             'amount'          => $amount,
             'currency'        => $currency,
             'predefined_data' => array(
-            'paymill' => $options
+                'paymill' => $options
             ),
         ));
     }

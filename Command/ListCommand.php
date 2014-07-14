@@ -27,7 +27,6 @@ abstract class ListCommand extends ApiCommand
     // }
 
     /**
-     *
      * @param InputInterface $input
      * @param OutputInterface $output
      *

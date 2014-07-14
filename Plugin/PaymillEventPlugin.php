@@ -13,10 +13,8 @@ use JMS\Payment\CoreBundle\Plugin\AbstractPlugin,
 class PaymillEventPlugin extends AbstractPlugin
 {
     /**
-     *
      * @param FinancialTransactionInterface $transaction
      * @param bool $retry
-     *
      */
     public function approveAndDeposit(FinancialTransactionInterface $transaction, $retry)
     {
@@ -24,10 +22,8 @@ class PaymillEventPlugin extends AbstractPlugin
     }
 
     /**
-     *
      * @param FinancialTransactionInterface $transaction
      * @param bool $retry
-     *
      */
     public function credit(FinancialTransactionInterface $transaction, $retry)
     {
@@ -35,9 +31,7 @@ class PaymillEventPlugin extends AbstractPlugin
     }
 
     /**
-     *
      * @param FinancialTransactionInterface $transaction
-     *
      */
     private function process(FinancialTransactionInterface $transaction)
     {
@@ -47,7 +41,6 @@ class PaymillEventPlugin extends AbstractPlugin
     }
 
     /**
-     *
      * @param string $name
      *
      * @return bool
