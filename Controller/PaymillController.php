@@ -2,7 +2,9 @@
 
 namespace Memeoirs\PaymillBundle\Controller;
 
+use JMS\Payment\CoreBundle\Model\PaymentInstructionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use JMS\Payment\CoreBundle\PluginController\Result;
@@ -22,7 +24,14 @@ abstract class PaymillController extends Controller
         ));
     }
 
-    protected function createPaymentInstruction($form)
+    /**
+     * Create the Payment instruction
+     *
+     * @param FormInterface $form
+     *
+     * @return PaymentInstructionInterface
+     */
+    protected function createPaymentInstruction(FormInterface $form)
     {
         $ppc = $this->get('payment.plugin_controller');
         $instruction = $form->getData();
@@ -35,12 +44,14 @@ abstract class PaymillController extends Controller
      * Complete a payment by creating a transaction using Paymill's API, i.e.
      * call JMSPaymentCore's approveAndDeposit method.
      *
-     * @param PaymentIsntruction $instrcution PaymentInstruction instance
+     * @param PaymentInstructionInterface $instruction PaymentInstruction instance
      * @param string $successRoute The name of the route to redirect the user
      *                             when payment is successful
      * @param array $routeParams   The params to construct the url from the route
+     *
+     * @return JsonResponse
      */
-    protected function completePayment($instruction, $route, $routeParams)
+    protected function completePayment(PaymentInstructionInterface $instruction, $route, $routeParams)
     {
         $ppc        = $this->get('payment.plugin_controller');
         $translator = $this->get('translator');

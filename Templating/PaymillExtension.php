@@ -10,6 +10,10 @@ class PaymillExtension extends TwigExtension
     private $publicKey;
     private $container;
 
+    /**
+     * @param ContainerInterface $container
+     * @param string $publicKey
+     */
     public function __construct(ContainerInterface $container, $publicKey)
     {
         $this->container = $container;

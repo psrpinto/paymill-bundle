@@ -2,7 +2,9 @@
 
 namespace Memeoirs\PaymillBundle\Controller;
 
+use JMS\Payment\CoreBundle\Model\PaymentInstructionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\Payment\CoreBundle\Model\PaymentInterface;
 use JMS\Payment\CoreBundle\PluginController\Result;
@@ -14,13 +16,18 @@ class WebhooksController extends Controller
         'refund.succeeded'
     );
 
-    public function hookAction()
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function hookAction(Request $request)
     {
         $log = $this->get('logger');
         $ppc = $this->get('payment.plugin_controller');
         $response = new Response;
 
-        $data = $this->getRequest()->getContent();
+        $data = $request->getContent();
         if (empty($data)) {
             $log->error('Empty Paymill event. Ignoring.');
             return $response;
@@ -152,10 +159,10 @@ class WebhooksController extends Controller
     /**
      * Set payment_system_name on a payment instruction associated with a given Payment.
      *
-     * @param PaymentInstruction $instruction PaymentInstruction entity
+     * @param PaymentInstructionInterface $instruction PaymentInstruction entity
      * @param string $name The new value for payment_system_name
      */
-    private function setPaymentSystemName($instruction, $name)
+    private function setPaymentSystemName(PaymentInstructionInterface $instruction, $name)
     {
         $em = $this->getDoctrine()->getManager();
         $em->getConnection()->beginTransaction();
@@ -177,10 +184,10 @@ class WebhooksController extends Controller
     /**
      * Set state on a given Payment.
      *
-     * @param Payment $payment Payment entity
+     * @param PaymentInterface $payment Payment entity
      * @param integer $state   New state
      */
-    private function setPaymentState($payment, $state)
+    private function setPaymentState(PaymentInterface $payment, $state)
     {
         $em = $this->getDoctrine()->getManager();
         $em->getConnection()->beginTransaction();
