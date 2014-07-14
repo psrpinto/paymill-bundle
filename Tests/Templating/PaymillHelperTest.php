@@ -6,13 +6,10 @@ use Memeoirs\PaymillBundle\Templating\PaymillHelper;
 use Mockery as m;
 
 /**
- *
  * @author Tobias Nyholm
- *
  */
 class PaymillHelperTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testInitialize()
     {
         $expected = 'foobar';
@@ -22,7 +19,7 @@ class PaymillHelperTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('render')->with($template, $options)->once()->andReturn($expected)
             ->getMock();
 
-        $helper=new PaymillHelper($engine, $template);
+        $helper = new PaymillHelper($engine, $template);
         $result=$helper->initialize($options);
 
         $this->assertEquals($expected, $result);
@@ -31,7 +28,7 @@ class PaymillHelperTest extends \PHPUnit_Framework_TestCase
     public function testGetName()
     {
         $engine = m::mock('Symfony\Component\Templating\EngineInterface');
-        $helper=new PaymillHelper($engine, 'foo');
+        $helper = new PaymillHelper($engine, 'foo');
 
         $this->assertEquals('paymill', $helper->getName());
     }
