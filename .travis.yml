@@ -6,7 +6,7 @@ php:
     - 5.5
     - 5.6
     - hhvm
- 
+
 env:
   - SYMFONY_VERSION=2.3.*
 
@@ -15,7 +15,6 @@ before_script:
   - composer require symfony/symfony:${SYMFONY_VERSION} --prefer-source
 
 script: phpunit --coverage-text
-
 
 matrix:
   allow_failures:

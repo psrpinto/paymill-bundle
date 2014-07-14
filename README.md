@@ -1,4 +1,5 @@
-# paymill-bundle
+# paymill-bundle [![Build Status](https://travis-ci.org/memeoirs/paymill-bundle.svg?branch=master)](https://travis-ci.org/memeoirs/paymill-bundle)
+
 Straight forward integration of [Paymill](http://paymill.com) payments into Symfony 2 applications.
 
 ![Credit card form screenshot](Resources/doc/form.png)
