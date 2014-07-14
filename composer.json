@@ -21,6 +21,9 @@
         "jms/payment-core-bundle": "~1.0",
         "paymill/paymill": "3.0.*"
     },
+    "require-dev": {
+        "mockery/mockery": "0.9.*"
+    },
     "autoload": {
         "psr-0": { "Memeoirs\\PaymillBundle": "" }
     },
