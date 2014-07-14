@@ -4,11 +4,15 @@
     "description": "Paymill payments for Symfony apps",
     "keywords": ["payment", "paymill"],
     "homepage": "https://github.com/memeoirs/paymill-bundle",
-    "license": "Apache",
+    "license": "MIT",
     "authors": [
         {
             "name": "Paulo Rodrigues Pinto",
             "email": "regularjack@gmail.com"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/memeoirs/paymill-bundle/contributors"
         }
     ],
     "require": {
