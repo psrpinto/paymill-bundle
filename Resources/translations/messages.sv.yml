@@ -1,0 +1,6 @@
+memeoirs.paymill:
+  form:
+    card_number: 'Kortnummer'
+    expires: 'Datum'
+    name_on_card: 'Namn på kortet'
+    card_code: 'CVC'

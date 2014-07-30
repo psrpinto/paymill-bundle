@@ -1,0 +1,39 @@
+default: Ett fel inträffade. Försök ingen och kontakta oss om felet kvarstår.
+10001:  Ett fel inträffade. Försök ingen och kontakta oss om felet kvarstår.
+10002: Väntar fortfarande på något.
+20000: Allmänt lyckat svar.
+40000: Allmän problem med data.
+40001: Allmänt problem med betalningsinformation.
+40100: Problem med kreditkorts data.
+40101: Problem med cvv.
+40102: Kortets datum har förfallit eller så är kortet inte aktivt än.
+40103: Gränsen har överskridits.
+40104: Kortet är inte giltligt.
+40105: Utgångsdatum ogiltigt.
+40106: Kriditskortstillverkare saknas.
+40200: Problem med bankuppgifter.
+40201: Bank account data combination mismatch.
+40202: Användarauthentisering misslyckades.
+40300: Problem med 3d säker data.
+40301: Valuta / Belopp stämmer inte.
+40400: Problem with input data.
+40401: Värdet är för lågt eller noll.
+40402: Fältet är för långt.
+40403: Valutan är inte giltlig.
+50000: Allmänt problem med backend.
+50001: Landet är svartlistat.
+50002: IP-adress svartlistad.
+50100: Tekniskt problem med kreditkortet.
+50101: Felgränsen är överskriden.
+50102: Kortet nekades av authentikerings systemet.
+50103: Manupelerat eller stulet kort.
+50104: Card restricted.
+50105: Felaktigt kortkonfigurationsdata.
+50200: Tekniskt fel med bankkontot.
+50201: Kortet svartlistat.
+50300: Technical error with 3D secure.
+50400: Nekat på grund av riskfaktorer.
+50500: Allmän timeout.
+50501: Timeout hos förvärvaren.
+50502: Timeout för riskhanteringstransatktionen.
+50600: En transaktionsdublett har hittats.
