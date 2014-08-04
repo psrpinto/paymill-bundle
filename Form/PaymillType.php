@@ -35,10 +35,10 @@ class PaymillType extends AbstractType
         ));
 
         $builder
-            ->add('number' , 'text',   array('required' => false, 'label' => 'Card number'))
-            ->add('expiry' , 'text',   array('required' => false, 'label' => 'Expires'))
-            ->add('holder' , 'text',   array('required' => false, 'label' => 'Name on card'))
-            ->add('cvc'    , 'text',   array('required' => false, 'label' => 'Card code'))
+            ->add('number' , 'text',   array('required' => false, 'label' => $this->trans('card_number')))
+            ->add('expiry' , 'text',   array('required' => false, 'label' => $this->trans('expires')))
+            ->add('holder' , 'text',   array('required' => false, 'label' => $this->trans('name_on_card')))
+            ->add('cvc'    , 'text',   array('required' => false, 'label' => $this->trans('card_code')))
             ->add('token'  , 'hidden', array(
                 'required' => false,
                 'constraints' => array($tokenNotBlank)
@@ -69,5 +69,16 @@ class PaymillType extends AbstractType
     public function getName()
     {
         return 'paymill';
+    }
+
+    /**
+     * Translate a string
+     *
+     * @param $id
+     * @param string $domain
+     */
+    private function trans($id, $domain = 'messages')
+    {
+        return $this->translator->trans('memeoirs.paymill.form.'.$id, array(), $domain);
     }
 }
