@@ -72,12 +72,12 @@ class PaymillType extends AbstractType
     }
 
     /**
-     * Short function to translate
+     * Translate a string
      *
      * @param $id
      * @param string $domain
      */
-    private function trans($id, $domain='messages')
+    private function trans($id, $domain = 'messages')
     {
         return $this->translator->trans('memeoirs.paymill.form.'.$id, array(), $domain);
     }
