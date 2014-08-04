@@ -44,7 +44,7 @@ class WebhooksController extends Controller
         $eventType = $event['event_type'];
 
         if (!in_array($eventType, $this->supportedEvents)) {
-            $log->warn("Unsupported event type $eventType. Ignoring.");
+            $log->warning("Unsupported event type $eventType. Ignoring.");
             return $response;
         }
 
