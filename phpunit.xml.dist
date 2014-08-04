@@ -16,4 +16,15 @@
                   file="vendor/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListener.php">
         </listener>
     </listeners>
+    
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./</directory>
+            <exclude>
+                <directory>vendor</directory>
+                <directory>Tests</directory>
+                <directory>build</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>
