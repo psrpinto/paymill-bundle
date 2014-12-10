@@ -1,6 +1,6 @@
 memeoirs.paymill:
-  form:
-    card_number: 'Card number'
-    expires: 'Expires'
-    name_on_card: 'Name on card'
-    card_code: 'Card Code'
+    form:
+        card_number: Card number
+        expires: Expires
+        name_on_card: Name on card
+        card_code: Card Code

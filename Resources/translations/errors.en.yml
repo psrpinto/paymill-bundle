@@ -23,6 +23,7 @@ default: Something went wrong. Please try again and contact us if the problem pe
 50000: General problem with backend.
 50001: Country blacklisted.
 50002: IP address blacklisted.
+50003: Anonymous IP proxy used.
 50100: Technical error with credit card.
 50101: Error limit exceeded.
 50102: Card declined by authorization system.
@@ -33,6 +34,16 @@ default: Something went wrong. Please try again and contact us if the problem pe
 50201: Card blacklisted.
 50300: Technical error with 3D secure.
 50400: Decline because of risk issues.
+50401: Checksum was wrong
+50402: Bank account number was invalid (formal check).
+50403: Technical error with risk check.
+50404: Unknown error with risk check.
+50405: Unknown bank code.
+50406: Open chargeback.
+50407: Historical chargeback.
+50408: Institution / public bank account (NCA).
+50409: KUNO/Fraud.
+50410: Personal Account Protection (PAP).
 50500: General timeout.
 50501: Timeout on side of the acquirer.
 50502: Risk management transaction timeout.
