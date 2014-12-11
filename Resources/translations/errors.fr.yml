@@ -1,0 +1,50 @@
+default: Une erreur est survenue. Veuillez réessayer et contactez-nous si le problème persiste.
+10001: Une erreur est survenue. Veuillez réessayer et contactez-nous si le problème persiste.
+10002: Toujours en attente d’un élément.
+20000: Tout semble fonctionner.
+40000: Problème général avec les données.
+40001: Problème général avec les données de paiement.
+40100: Problème avec les données de la carte bancaire.
+40101: Problème avec le code de vérification (CVV).
+40102: Carte bancaire expirée ou pas encore valide.
+40103: Limite dépassée.
+40104: Carte bancaire invalide.
+40105: Date d’expiration non valide.
+40106: Marque de la carte bancaire requise.
+40200: Problème avec les données de compte bancaire.
+40201: Les données de compte bancaire ne correspondent pas.
+40202: L’authentification de l’utilisateur a échoué.
+40300: Problème avec les données 3D-Secure.
+40301: La devise et le montant ne correspondent pas.
+40400: Problème avec les données saisies.
+40401: Montant trop bas ou à zéro.
+40402: Champ utilisé trop long.
+40403: Devise non autorisée.
+50000: Problème général avec le système.
+50001: Pays sur liste noire.
+50002: Adresse IP sur liste noire.
+50003: IP de proxy anonyme utilisée.
+50100: Erreur technique avec la carte bancaire.
+50101: Limite d'erreurs dépassée.
+50102: Carte bancaire refusée par le système d’autorisation.
+50103: Carte bancaire manipulée ou volée.
+50104: Carte bancaire avec certaines restrictions.
+50105: Données de configuration de carte invalides.
+50200: Erreur technique avec le compte bancaire.
+50201: Carte bancaire sur liste noire.
+50300: Erreur technique avec 3D-Secure.
+50400: Refusé à cause de risques potentiels.
+50401: Erreur de somme de contrôle.
+50402: Le numéro de compte bancaire est invalide (contrôle formel).
+50403: Erreur technique avec le contrôle de sécurité.
+50404: Erreur inconnue avec le contrôle de sécurité.
+50405: Code bancaire inconnu.
+50406: Rétrofacturation en cours.
+50407: Historique de rétrofacturation.
+50408: Compte institution / banque publique (NCA).
+50409: KUNO/fraude.
+50410: Protection des données personnelles (PAP).
+50500: Expiration générale.
+50501: Expiration du côté de l’acquéreur.
+50502: Transaction de gestion des risques expirée.
+50600: Transaction déjà existante.

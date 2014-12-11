@@ -1,0 +1,50 @@
+default: Se produjo un error. Por favor, intente nuevamente y póngase en contacto con nosotros si el problema persiste.
+10001: Se produjo un error. Por favor, intente nuevamente y póngase en contacto con nosotros si el problema persiste.
+10002: Sigo esperando algo.
+20000: Respuesta general de éxito.
+40000: Problema general con los datos.
+40001: Problema general con los datos de pago.
+40100: Problema con los datos de la tarjeta de crédito.
+40101: Problema con el cvv.
+40102: La tarjeta expiró o aún no es válida.
+40103: Se excedió el límite.
+40104: Tarjeta no válida
+40105: Fecha de vencimiento no válida.
+40106: Requiere marca de la tarjeta de crédito.
+40200: Problema con los datos de la cuenta bancaria.
+40201: No coincide la combinación de datos de la cuenta bancaria.
+40202: Error en la autenticación de usuario.
+40300: Problema con datos de 3d secure.
+40301: No coincide la moneda / el monto
+40400: Problema con los datos ingresados.
+40401: Monto demasiado bajo o cero.
+40402: Campo de uso demasiado largo.
+40403: Moneda no permitida.
+50000: Problema general con el backend.
+50001: País en la lista negra.
+50002: Dirección IP en la lista negra.
+50003: Se utilizó un proxy IP anónimo.
+50100: Error técnico con la tarjeta de crédito.
+50101: Límite de errores superado.
+50102: Tarjeta rechazada por sistema de autorización.
+50103: Manipulación o tarjeta robada.
+50104: Tarjeta restringida.
+50105: Datos de configuración de tarjeta no válida.
+50200: Error técnico con cuenta bancaria.
+50201: Tarjeta en la lista negra.
+50300: Error técnico con 3D secure.
+50400: Rechazo debido a temas de riesgo.
+50401: La suma de chequeo estaba equivocada
+50402: El número de cuenta bancaria no era válido (control formal).
+50403: Error técnico con control de riesgo.
+50404: Error desconocido con control de riesgo.
+50405: Código bancario desconocido.
+50406: Abrir reembolso.
+50407: Reembolso histórico.
+50408: Cuenta de institución / banco público (NCA).
+50409: KUNO/Fraud.
+50410: Protección de Cuenta Personal(PAP).
+50500: Tiempo de espera general.
+50501: Tiempo de espera en el lado del adquirente.
+50502: Tiempo de espera de transacción de manejo de riesgo.
+50600: Transacción duplicada.

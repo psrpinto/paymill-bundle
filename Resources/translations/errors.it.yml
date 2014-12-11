@@ -1,0 +1,50 @@
+default: Si è verificato un errore. Si prega di riprovare. Se il problema persiste contattare il nostro team.
+10001: Si è verificato un errore. Si prega di riprovare. Se il problema persiste contattare il nostro team.
+10002: Ancora in attesa di un elemento.
+20000: Tutto sembra funzionare.
+40000: Problema generale con i dati.
+40001: Problema generale con i dati della carta di credito.
+40100: Problema con i dati della carta di credito.
+40101: Problema con il codice di verifica (CVV).
+40102: Carta di credito scaduta o non ancora valida.
+40103: Limite superato.
+40104: Carta di credito invalida.
+40105: Data di scadenza non valida.
+40106: Viene richiesto il marchio della carta di credito.
+40200: Problema con i dati del conto corrente.
+40201: I dati del conto corrente non corrispondono.
+40202: Autentificazione utente non eseguita.
+40300: Problema con i dati 3D-Secure.
+40301: La valuta e l’importo non corrispondono.
+40400: Problema con i dati inseriti.
+40401: Importo troppo basso o nullo.
+40402: Campo utilizzato troppo lungo.
+40403: Valuta non autorizzata.
+50000: Problema generale con il sistema.
+50001: Paese presente nella lista nera.
+50002: Indirizzo IP su lista nera.
+50003: IP di proxy anonimo utilizzato.
+50100: Errore tecnico con la carta di credito.
+50101: Superato il limite di errori.
+50102: Carta di credito non accettata dal sistema di autorizzazione.
+50103: Carta di credito manipolata o rubata.
+50104: Carta di credito con alcune restrizioni.
+50105: Dati di configurazione di carta non validi.
+50200: Errore tecnico con il conto corrente.
+50201: Carta di credito presente nella lista nera.
+50300: Errore tecnico con 3D-Secure.
+50400: Rifiutata per motivi di rischi potenziali.
+50401: Errore di importo di controllo.
+50402: Il numero di conto corrente non è valido (controllo ufficiale).
+50403: Errore tecnico con il controllo di sicurezza.
+50404: Errore sconosciuto con il controllo di sicurezza.
+50405: Codice bancario sconosciuto.
+50406: Retrofatturazioni in corso.
+50407: Storico di retrofatturazioni.
+50408: Conto istituzione / banca pubblica (NCA).
+50409: KUNO/frode.
+50410: Protezioni dei dati personali (PAP).
+50500: Scadenza generale.
+50501: Scadenza dal lato dell’acquerente.
+50502: Transazione di gestione dei rischi scaduta.
+50600: Transazione già esistente.

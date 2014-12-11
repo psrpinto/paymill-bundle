@@ -1,0 +1,50 @@
+default: Etwas ist schief gelaufen. Bitte versuchen Sie es erneut und kontaktieren Sie uns, wenn das Problem weiterhin bestehen sollte.
+10001: Etwas ist schief gelaufen. Bitte versuchen Sie es erneut und kontaktieren Sie uns, wenn das Problem weiterhin bestehen sollte.
+10002: Wir warten immer noch auf etwas.
+20000: Genereller Erfolg mit der Antwort.
+40000: Generelles Problem mit Daten.
+40001: Generelles Problem mit Zahlungsdaten.
+40100: Problem mit Kreditkartendaten.
+40101: Problem mit der Kreditkartenprüfnummer.
+40102: Die Karte ist abgelaufen oder noch nicht gültig.
+40103: Das Limit ist überschritten.
+40104: Die Karte ist ungültig.
+40105: Das Ablaufdatum ist ungültig.
+40106: Kreditkartenmarke erforderlich.
+40200: Problem mit der Bankverbindung.
+40201: Bankkonten-Daten Kombination stimmt nicht.
+40202: Benutzer-Authentifizierung fehlgeschlagen.
+40300: Problem mit sicheren 3D-Daten.
+40301: Währung / Betrag Konflikt
+40400: Problem mit Eingabedaten.
+40401: Betrag zu gering oder gleich Null.
+40402: Verwendungsfeld zu lang
+40403: Währung nicht erlaubt.
+50000: Generelles Problem mit dem Backend.
+50001: Land, das auf der schwarzen Liste steht.
+50002: IP-Adresse, die auf der schwarzen Liste steht.
+50003: Anonyme IP Proxy verwendet.
+50100: Technischer Fehler mit der Kreditkarte
+50101: Anzahl der Fehler überschritten.
+50102: Karte vom Autorisierungssystem abgelehnt.
+50103: Manipulation oder gestohlene Karte
+50104: Karte ist eingeschränkt.
+50105: Ungültige Karten-Konfigurationsdaten.
+50200: Technischer Fehler mit dem Bankkonto.
+50201: Karte, die auf der schwarzen Liste steht.
+50300: Technischer Fehler mit 3D Sicherheit.
+50400: Wegen Risiken abgelehnt.
+50401: Prüfsumme war falsch
+50402: Kontonummer ist ungültig (formale Überprüfung).
+50403: Technischer Fehler beim Risiko-Check.
+50404: Unbekannter Fehler beim Risiko-Check.
+50405: Unbekannte BLZ.
+50406: Offene Ausgleichsbuchung.
+50407: Historische Ausgleichsbuchung.
+50408: Institution / öffentliches Bank Konto (NCA).
+50409: KUNO/Betrug.
+50410: Persönlicher Kontoschutz (PAP).
+50500: Allgemeine Zeitausstellung.
+50501: Zeitausstellung auf Seiten des Erwerbers.
+50502: Risk Management Transaktions-Zeitausstellung.
+50600: Doppelte Transaktion.

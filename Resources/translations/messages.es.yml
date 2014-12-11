@@ -1,0 +1,6 @@
+memeoirs.paymill:
+    form:
+        card_number: Número de tarjeta
+        expires: Expira
+        name_on_card: Titular de la tarjeta
+        card_code: Código
