@@ -11,17 +11,19 @@ use JMS\Payment\CoreBundle\PluginController\Result;
 
 abstract class PaymillController extends Controller
 {
-    protected function getPaymillForm($amount, $currency, $options = array())
+    protected function getPaymillForm($amount, $currency, $data = array(), $options = array())
     {
-        return $this->get('form.factory')->create('jms_choose_payment_method', null, array(
+        $options = array_merge(array(
             'allowed_methods' => array('paymill'),
             'default_method'  => 'paymill',
             'amount'          => $amount,
             'currency'        => $currency,
             'predefined_data' => array(
-                'paymill' => $options
-            ),
-        ));
+                'paymill' => $data,
+            )
+        ), $options);
+
+        return $this->get('form.factory')->create('jms_choose_payment_method', null, $options);
     }
 
     /**
@@ -51,7 +53,7 @@ abstract class PaymillController extends Controller
      *
      * @return JsonResponse
      */
-    protected function completePayment(PaymentInstructionInterface $instruction, $route, $routeParams)
+    protected function completePayment(PaymentInstructionInterface $instruction, $route, $routeParams = array())
     {
         $ppc        = $this->get('payment.plugin_controller');
         $translator = $this->get('translator');
