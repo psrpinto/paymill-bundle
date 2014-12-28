@@ -221,8 +221,60 @@ public function checkoutAction ()
 }
 ```
 
+You can specify a client id if you already stored it in your database:
+```php
+$form = $this->getPaymillForm($order->getAmount(), $order->getCurrency(), array(
+    'client' => array('id' => 'client_abcd1234')
+);
+```
+
 ## Changing how the form looks
 TODO
+
+# Offers and subscriptions
+Paymill allow you to create offers and [subscriptions](https://www.paymill.com/en-gb/documentation-3/introduction/subscriptions/) to it.\
+Subscriptions needs to be attached to a client and an offer.
+
+```php
+// Acme\DemoBundle\Controller\OrdersController
+public function checkoutAction ()
+{
+    // ...
+
+    $orderDescription = 'Two baskets of apples';
+    $email = 'user@example.com';
+    $name = 'John Doe';
+
+    $form = $this->getPaymillForm($order->getAmount(), $order->getCurrency(), array(
+        'client' => array('id' => 'client_abcd1234'),
+        'offer' => array(
+            'name' => 'my-offer',
+            'interval' => '1 MONTH',
+        )
+    ));
+
+    // ...
+}
+```
+
+Like the clients, you can specify the offer\_id if you kept it in your database
+```php
+$form = $this->getPaymillForm($order->getAmount(), $order->getCurrency(), array(
+    'client' => array('id' => 'client_abcd1234'),
+    'offer' => array('id' => 'offer_wxyz6789'),
+));
+```
+
+## Unsubscribe
+If you want to unsubscribe  a client for an offer, you have to call
+
+```php
+$subscription = new \Paymill\Models\Request\Subscription();
+$subscription->setId('sub_dc180b755d10da324864');
+
+$this->get('memeoirs_paymill.api')->delete($subscription);
+```
+
 
 # Webhooks
 A webhook is a controller action to which Paymill POSTs events. As of now, this bundle is able to automatically handle  notifications for the following event types: `transaction.succeeded` and `refund.succeeded`.
