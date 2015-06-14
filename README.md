@@ -51,14 +51,6 @@ memeoirs_paymill:
     resource: "@MemeoirsPaymillBundle/Resources/config/routing.yml"
 ```
 
-Finally, you need to tell *Assetic* about this bundle:
-
-```yml
-// app/config.yml
-assetic:
-    bundles: ['AcmeSomeBundle', 'MemeoirsPaymillBundle']
-```
-
 ## Configuration
 [JMSPaymentCoreBundle's](https://github.com/schmittjoh/JMSPaymentCoreBundle) configuration is as easy as choosing a random secret string which will be used for encrypting data. Note that if you change the secret all data encrypted with the old secret will become unreadable.
 
@@ -138,10 +130,7 @@ The twig template:
 
 {# looks better with bootstrap #}
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css">
-
-{% stylesheets '@MemeoirsPaymillBundle/Resources/assets/css/paymill.css' %}
-  <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
-{% endstylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/memeoirspaymill/css/paymill.css') }}">
 
 {% form_theme form 'MemeoirsPaymillBundle::form.html.twig' %}
 <form action="{{ path('checkout', {'id': order.id}) }}"
