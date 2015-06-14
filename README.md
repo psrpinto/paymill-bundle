@@ -22,7 +22,7 @@ Add the following to your `composer.json`:
 ```json
 {
     "require": {
-        "memeoirs/paymill-bundle": "0.2.*"
+        "memeoirs/paymill-bundle": "0.3.*"
     }
 }
 ```
