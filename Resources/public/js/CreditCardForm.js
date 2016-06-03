@@ -29,8 +29,8 @@ var Paymill = {
             $(this).removeClass('error');
         });
 
-        $(this.els.number).keyup(Util.bind(this.setCardType, this));
-        $(this.els.form).submit(Util.bind(this.onSubmit, this));
+        $(this.els.number).keyup(PaymillUtil.bind(this.setCardType, this));
+        $(this.els.form).submit(PaymillUtil.bind(this.onSubmit, this));
 
         $(this.els.methodPaymill).prop('checked', 'checked');
         this.setCardType();
@@ -98,7 +98,7 @@ var Paymill = {
             cardholder: holder,
             amount_int: this.amount,
             currency:   this.currency
-        }, Util.bind(this.onResponse, this));
+        }, PaymillUtil.bind(this.onResponse, this));
 
         return false;
     },
@@ -126,7 +126,7 @@ var Paymill = {
             type: 'POST',
             url: form.attr('action'),
             data: form.serialize(),
-            success: Util.bind(function(data) {
+            success: PaymillUtil.bind(function(data) {
                 if (data.error) {
                     this.error(data.message);
                     this.enableSubmit();
@@ -134,7 +134,7 @@ var Paymill = {
                     window.location.href = data.successUrl;
                 }
             }, this),
-            error: Util.bind(function(data) {
+            error: PaymillUtil.bind(function(data) {
                 this.error('Something went wrong. Please try again and contact us if the problem persists.');
                 this.enableSubmit();
             }, this)
@@ -176,7 +176,7 @@ var Paymill = {
 
 // Create a function bound to a given object (assigning this, and arguments,
 // optionally). Borrowed from underscore.js
-var Util = {
+var PaymillUtil = {
     bind: function(func, context) {
         var args, bound;
         args = Array.prototype.slice.call(arguments, 2);
