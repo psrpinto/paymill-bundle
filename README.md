@@ -1,6 +1,6 @@
-# paymill-bundle [![Build Status](https://travis-ci.org/memeoirs/paymill-bundle.svg?branch=master)](https://travis-ci.org/memeoirs/paymill-bundle)
+# paymill-bundle [![Build Status](https://travis-ci.org/regularjack/paymill-bundle.svg?branch=master)](https://travis-ci.org/memeoirs/paymill-bundle)
 
-Straight forward integration of [Paymill](http://paymill.com) payments into Symfony 2 applications.
+Straight forward integration of [Paymill](http://paymill.com) payments into Symfony applications.
 
 ![Credit card form screenshot](Resources/doc/form.png)
 
@@ -17,21 +17,11 @@ Straight forward integration of [Paymill](http://paymill.com) payments into Symf
 *This bundle uses functionality provided by [JMSPaymentCoreBundle](https://github.com/schmittjoh/JMSPaymentCoreBundle) which allows you to add new payment backends (e.g. Paypal) with minimum changes to your code. These instructions will also guide you through the installation of that bundle.*
 
 ## Installation
-Add the following to your `composer.json`:
+Install with composer:
 
-```json
-{
-    "require": {
-        "memeoirs/paymill-bundle": "0.3.*"
-    }
-}
-```
+    composer require memeoirs/paymill-bundle
 
-You can then install the bundle and it's dependencies by running `composer update`:
-
-    $ composer update memeoirs/paymill-bundle
-
-Then register the new bundles in `AppKernel.php`:
+Then register the bundles in `AppKernel.php`:
 
 ```php
 // app/AppKernel.php
@@ -81,8 +71,6 @@ Or, without migrations:
     php app/console doctrine:schema:update
 
 # Usage
-*If you wish to better understand how this will fit in your application see [paymill-bundle-example](https://github.com/memeoirs/paymill-bundle-example) for an example Symfony app that uses this bundle. [JMSPaymentCoreBundle's documentation](http://jmsyst.com/bundles/JMSPaymentCoreBundle) is also useful.*
-
 ## Rendering the form
 You'll need a new route:
 
@@ -223,11 +211,8 @@ The only thing you need to do is create a webhook using the provided console com
 
 Everytime a successful transaction or refund happens, Paymill will post a request to the URL you provided, which maps to the [MemeoirsPaymillBundle:Webhooks:hook](Controller/WebhooksController.php) controller action (make sure you included [routing.yml](Resources/config/routing.yml) in your routing file).
 
-# Listeners
-TODO
-
 # Console
-*Work in progress. Currently only webhooks are supported*
+*Currently only webhooks are supported*
 
 The console commands give you CRUD access to Paymill's API from the command line.
 
