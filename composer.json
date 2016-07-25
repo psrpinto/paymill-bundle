@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Paymill payments for Symfony apps",
     "keywords": ["payment", "paymill"],
-    "homepage": "https://github.com/memeoirs/paymill-bundle",
+    "homepage": "https://github.com/regularjack/paymill-bundle",
     "license": "MIT",
     "authors": [
         {
@@ -12,7 +12,7 @@
         },
         {
             "name": "Contributors",
-            "homepage": "https://github.com/memeoirs/paymill-bundle/contributors"
+            "homepage": "https://github.com/regularjack/paymill-bundle/contributors"
         }
     ],
     "require": {
@@ -22,7 +22,7 @@
         "paymill/paymill": "3.0.*"
     },
     "require-dev": {
-        "mockery/mockery": "0.9.*"
+        "mockery/mockery": "~0.9"
     },
     "autoload": {
         "psr-0": { "Memeoirs\\PaymillBundle": "" }

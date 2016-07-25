@@ -19,7 +19,6 @@
             <exclude>
                 <directory>vendor</directory>
                 <directory>Tests</directory>
-                <directory>build</directory>
             </exclude>
         </whitelist>
     </filter>
