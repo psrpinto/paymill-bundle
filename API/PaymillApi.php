@@ -21,13 +21,15 @@ class PaymillApi extends Request
      *
      * @param array $data Array containing a mandatory 'email' key and an
      *                    optional 'description' key.
+     *
      * @return string Client id
+     *
      * @throws \Paymill\Services\PaymillException
      */
     public function getClient($data)
     {
         if (!is_array($data) || !isset($data['email'])) {
-            return null;
+            return;
         }
 
         $client = new \Paymill\Models\Request\Client();
@@ -45,6 +47,7 @@ class PaymillApi extends Request
             ;
 
             $client = $this->create($client);
+
             return $client->getId();
         }
     }

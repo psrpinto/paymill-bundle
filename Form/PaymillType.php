@@ -2,12 +2,12 @@
 
 namespace Memeoirs\PaymillBundle\Form;
 
-use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilderInterface,
-    Symfony\Component\OptionsResolver\OptionsResolverInterface,
-    Symfony\Component\Validator\Constraints\NotBlank,
-    Symfony\Component\Form\FormInterface,
-    Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class PaymillType extends AbstractType
 {
@@ -26,22 +26,22 @@ class PaymillType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $tokenNotBlank = new NotBlank(array(
-            'message' => $this->translator->trans('default', array(), 'errors')
+            'message' => $this->translator->trans('default', array(), 'errors'),
         ));
 
         $builder
-            ->add('number' , 'text',   array('required' => false, 'label' => $this->trans('card_number')))
-            ->add('expiry' , 'text',   array('required' => false, 'label' => $this->trans('expires')))
-            ->add('holder' , 'text',   array('required' => false, 'label' => $this->trans('name_on_card')))
-            ->add('cvc'    , 'text',   array('required' => false, 'label' => $this->trans('card_code')))
-            ->add('token'  , 'hidden', array(
+            ->add('number', 'text', array('required' => false, 'label' => $this->trans('card_number')))
+            ->add('expiry', 'text', array('required' => false, 'label' => $this->trans('expires')))
+            ->add('holder', 'text', array('required' => false, 'label' => $this->trans('name_on_card')))
+            ->add('cvc', 'text', array('required' => false, 'label' => $this->trans('card_code')))
+            ->add('token', 'hidden', array(
                 'required' => false,
-                'constraints' => array($tokenNotBlank)
+                'constraints' => array($tokenNotBlank),
             ))
         ;
     }
@@ -52,14 +52,14 @@ class PaymillType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => function(FormInterface $form) {
+            'validation_groups' => function (FormInterface $form) {
                 $data = $form->getParent()->getData();
 
                 // Perform validation only if the payment method is Paymill
                 return $data->getPaymentSystemName() === $this->getName()
                     ? array('Default')
                     : array();
-            }
+            },
         ));
     }
 
@@ -72,7 +72,7 @@ class PaymillType extends AbstractType
     }
 
     /**
-     * Translate a string
+     * Translate a string.
      *
      * @param $id
      * @param string $domain

@@ -23,7 +23,7 @@ class Webhook
         'app.merchant.deactivated',
         'app.merchant.rejected',
         'client.updated',
-        'app.merchant.app.disabled'
+        'app.merchant.app.disabled',
     );
 
     public static function formatValue($key, $value)

@@ -13,7 +13,7 @@ class WebhooksController extends Controller
 {
     private $supportedEvents = array(
         'transaction.succeeded',
-        'refund.succeeded'
+        'refund.succeeded',
     );
 
     /**
@@ -25,11 +25,12 @@ class WebhooksController extends Controller
     {
         $log = $this->get('logger');
         $ppc = $this->get('payment.plugin_controller');
-        $response = new Response;
+        $response = new Response();
 
         $data = $request->getContent();
         if (empty($data)) {
             $log->error('Empty Paymill event. Ignoring.');
+
             return $response;
         }
 
@@ -37,14 +38,16 @@ class WebhooksController extends Controller
         if (!isset($data['event']) || !isset($data['event']['event_type']) ||
             !isset($data['event']['event_resource']['id'])) {
             $log->error('Invalid Paymill event. Ignoring.');
+
             return $response;
         }
 
-        $event     = $data['event'];
+        $event = $data['event'];
         $eventType = $event['event_type'];
 
         if (!in_array($eventType, $this->supportedEvents)) {
             $log->warning("Unsupported event type $eventType. Ignoring.");
+
             return $response;
         }
 
@@ -84,7 +87,7 @@ class WebhooksController extends Controller
                 $this->setPaymentState($payment, PaymentInterface::STATE_APPROVED);
 
                 try {
-                    $amount = $event['event_resource']['amount']/100;
+                    $amount = $event['event_resource']['amount'] / 100;
                     $refundId = $event['event_resource']['id'];
                     $this->createRefund($payment, $amount, $refundId);
                 } catch (Exception $e) {
@@ -99,9 +102,8 @@ class WebhooksController extends Controller
             if ($result && $result->getStatus() !== Result::STATUS_SUCCESS) {
                 $log->error('Transaction was not successful: '.$result->getReasonCode());
             }
-
         } catch (\Exception $e) {
-            $log->error("Failed to process event: ". $e->getMessage());
+            $log->error('Failed to process event: '.$e->getMessage());
         }
 
         // Reset the original value
@@ -124,7 +126,7 @@ class WebhooksController extends Controller
         $repository = $this->getDoctrine()->getManager()
             ->getRepository('JMS\Payment\CoreBundle\Entity\FinancialTransaction');
         $transaction = $repository->findOneBy(array(
-            'referenceNumber' => $transactionId
+            'referenceNumber' => $transactionId,
         ));
 
         if (!$transaction) {
@@ -160,7 +162,7 @@ class WebhooksController extends Controller
      * Set payment_system_name on a payment instruction associated with a given Payment.
      *
      * @param PaymentInstructionInterface $instruction PaymentInstruction entity
-     * @param string $name The new value for payment_system_name
+     * @param string                      $name        The new value for payment_system_name
      */
     private function setPaymentSystemName(PaymentInstructionInterface $instruction, $name)
     {
@@ -185,7 +187,7 @@ class WebhooksController extends Controller
      * Set state on a given Payment.
      *
      * @param PaymentInterface $payment Payment entity
-     * @param integer $state   New state
+     * @param int              $state   New state
      */
     private function setPaymentState(PaymentInterface $payment, $state)
     {

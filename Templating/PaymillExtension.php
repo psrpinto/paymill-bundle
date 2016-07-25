@@ -2,7 +2,7 @@
 
 namespace Memeoirs\PaymillBundle\Templating;
 
-use \Twig_Extension as TwigExtension;
+use Twig_Extension as TwigExtension;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PaymillExtension extends TwigExtension
@@ -12,7 +12,7 @@ class PaymillExtension extends TwigExtension
 
     /**
      * @param ContainerInterface $container
-     * @param string $publicKey
+     * @param string             $publicKey
      */
     public function __construct(ContainerInterface $container, $publicKey)
     {
@@ -26,7 +26,7 @@ class PaymillExtension extends TwigExtension
     public function getGlobals()
     {
         return array('paymill' => array(
-            'public_key' => $this->publicKey
+            'public_key' => $this->publicKey,
         ));
     }
 
@@ -45,15 +45,16 @@ class PaymillExtension extends TwigExtension
     /**
      * Render the Paymill initialization markup.
      *
-     * @param integer $amount   Amount
-     * @param string  $currency Currency
+     * @param int    $amount   Amount
+     * @param string $currency Currency
+     *
      * @return string
      */
     public function renderInitialize($amount, $currency)
     {
         return $this->container->get('memeoirs_paymill.helper')->initialize(array(
             'amount'   => $amount,
-            'currency' => $currency
+            'currency' => $currency,
         ));
     }
 

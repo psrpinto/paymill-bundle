@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit
-         colors="true"
-         bootstrap="./vendor/autoload.php"
-        >
-
+<phpunit colors="true" bootstrap="./vendor/autoload.php">
     <testsuites>
         <testsuite name="PaymillBundle Test Suite">
             <directory>./Tests</directory>
@@ -16,7 +12,7 @@
                   file="vendor/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListener.php">
         </listener>
     </listeners>
-    
+
     <filter>
         <whitelist>
             <directory suffix=".php">./</directory>

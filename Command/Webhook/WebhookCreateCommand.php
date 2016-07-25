@@ -3,10 +3,8 @@
 namespace Memeoirs\PaymillBundle\Command\Webhook;
 
 use Memeoirs\PaymillBundle\Command\ApiCommand;
-
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
 class WebhookCreateCommand extends ApiCommand
@@ -45,18 +43,20 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $url     = $input->getOption('url');
-        $email   = $input->getOption('email');
+        $url = $input->getOption('url');
+        $email = $input->getOption('email');
         $disable = $input->getOption('disable');
-        $events  = $input->getOption('event');
+        $events = $input->getOption('event');
 
         if (!$url && !$email) {
-            $output->writeln("<error>Must specify either a url or an email address</error>");
+            $output->writeln('<error>Must specify either a url or an email address</error>');
+
             return;
         }
 
         if ($url && $email) {
-            $output->writeln("<error>Must specify only a url or an email address</error>");
+            $output->writeln('<error>Must specify only a url or an email address</error>');
+
             return;
         }
 
@@ -79,7 +79,7 @@ EOT
         $table = $this->getHelperSet()->get('table');
         $this->formatTableRow($resource, $table, false);
 
-        $output->writeln("<info>Webhook created</info>");
+        $output->writeln('<info>Webhook created</info>');
         $table->render($output);
     }
 

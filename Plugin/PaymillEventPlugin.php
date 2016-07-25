@@ -2,9 +2,9 @@
 
 namespace Memeoirs\PaymillBundle\Plugin;
 
-use JMS\Payment\CoreBundle\Plugin\AbstractPlugin,
-    JMS\Payment\CoreBundle\Model\FinancialTransactionInterface,
-    JMS\Payment\CoreBundle\Plugin\PluginInterface;
+use JMS\Payment\CoreBundle\Plugin\AbstractPlugin;
+use JMS\Payment\CoreBundle\Model\FinancialTransactionInterface;
+use JMS\Payment\CoreBundle\Plugin\PluginInterface;
 
 /**
  * Dummy Plugin for JMSPaymentCoreBundle.
@@ -14,7 +14,7 @@ class PaymillEventPlugin extends AbstractPlugin
 {
     /**
      * @param FinancialTransactionInterface $transaction
-     * @param bool $retry
+     * @param bool                          $retry
      */
     public function approveAndDeposit(FinancialTransactionInterface $transaction, $retry)
     {
@@ -23,7 +23,7 @@ class PaymillEventPlugin extends AbstractPlugin
 
     /**
      * @param FinancialTransactionInterface $transaction
-     * @param bool $retry
+     * @param bool                          $retry
      */
     public function credit(FinancialTransactionInterface $transaction, $retry)
     {

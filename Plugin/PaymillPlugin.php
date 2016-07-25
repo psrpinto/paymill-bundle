@@ -2,13 +2,11 @@
 
 namespace Memeoirs\PaymillBundle\Plugin;
 
-use JMS\Payment\CoreBundle\Plugin\AbstractPlugin,
-    JMS\Payment\CoreBundle\Model\FinancialTransactionInterface,
-    JMS\Payment\CoreBundle\Plugin\PluginInterface,
-    JMS\Payment\CoreBundle\Plugin\Exception\FunctionNotSupportedException,
-    JMS\Payment\CoreBundle\Plugin\Exception\PaymentPendingException,
-    JMS\Payment\CoreBundle\Plugin\Exception\FinancialException;
-
+use JMS\Payment\CoreBundle\Plugin\AbstractPlugin;
+use JMS\Payment\CoreBundle\Model\FinancialTransactionInterface;
+use JMS\Payment\CoreBundle\Plugin\PluginInterface;
+use JMS\Payment\CoreBundle\Plugin\Exception\PaymentPendingException;
+use JMS\Payment\CoreBundle\Plugin\Exception\FinancialException;
 use Memeoirs\PaymillBundle\API\PaymillApi;
 use Paymill\Services\PaymillException;
 
@@ -28,12 +26,12 @@ class PaymillPlugin extends AbstractPlugin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function approveAndDeposit(FinancialTransactionInterface $transaction, $retry)
     {
         try {
-            $data   = $transaction->getExtendedData();
+            $data = $transaction->getExtendedData();
             $client = $this->api->getClient($data->has('client') ? $data->get('client') : null);
 
             $apiTransaction = new \Paymill\Models\Request\Transaction();
@@ -46,7 +44,6 @@ class PaymillPlugin extends AbstractPlugin
             ;
 
             $apiTransaction = $this->api->create($apiTransaction);
-
         } catch (PaymillException $e) {
             $ex = new FinancialException($e->getErrorMessage());
             $ex->setFinancialTransaction($transaction);
@@ -82,7 +79,7 @@ class PaymillPlugin extends AbstractPlugin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function processes($name)
     {

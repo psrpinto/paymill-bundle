@@ -3,7 +3,6 @@
 namespace Memeoirs\PaymillBundle\Command\Webhook;
 
 use Memeoirs\PaymillBundle\Command\ApiCommand;
-
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -41,6 +40,7 @@ class WebhookDeleteCommand extends ApiCommand
         if (!$input->getOption('force')) {
             $idsString = implode(', ', $ids);
             $output->writeln("<comment>Would have deleted webhooks $idsString. Use --force to actually delete</comment>");
+
             return;
         }
 
@@ -49,6 +49,6 @@ class WebhookDeleteCommand extends ApiCommand
             $this->getApi()->delete($resource);
         }
 
-        $output->writeln("<info>Webhooks deleted</info>");
+        $output->writeln('<info>Webhooks deleted</info>');
     }
 }

@@ -2,24 +2,25 @@
 
 namespace Memeoirs\PaymillBundle\Templating;
 
-use Symfony\Component\Templating\Helper\Helper,
-    Symfony\Component\Templating\EngineInterface;
+use Symfony\Component\Templating\Helper\Helper;
+use Symfony\Component\Templating\EngineInterface;
 
 class PaymillHelper extends Helper
 {
-    private $engine   = null;
+    private $engine = null;
     private $template = null;
 
     public function __construct(EngineInterface $engine, $template)
     {
-        $this->engine   = $engine;
+        $this->engine = $engine;
         $this->template = $template;
     }
 
     /**
      * Render the Paymill initialization markup.
      *
-     * @param  array $options Array containing the amount and currency
+     * @param array $options Array containing the amount and currency
+     *
      * @return string
      */
     public function initialize(array $options)
@@ -34,5 +35,4 @@ class PaymillHelper extends Helper
     {
         return 'paymill';
     }
-
 }

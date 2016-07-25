@@ -24,7 +24,8 @@ abstract class ApiCommand extends ContainerAwareCommand
         $class = "\Paymill\Models\Request\\".ucfirst($resourceName);
         if (!class_exists($class)) {
             $output->writeln("<error>Unknown resource: $resourceName</error>");
-            return null;
+
+            return;
         }
 
         return new $class();
@@ -89,9 +90,10 @@ abstract class ApiCommand extends ContainerAwareCommand
     {
         if (in_array($key, array('created_at', 'updated_at'))) {
             $date = new \DateTime("@$value");
+
             return $date->format('Y-m-d H:i:s');
-        } else if (in_array($key, array('amount', 'origin_amount'))) {
-            return money_format("%2i", $value / 100);
+        } elseif (in_array($key, array('amount', 'origin_amount'))) {
+            return money_format('%2i', $value / 100);
         }
 
         return $value;

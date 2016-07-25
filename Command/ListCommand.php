@@ -4,30 +4,11 @@ namespace Memeoirs\PaymillBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 
 abstract class ListCommand extends ApiCommand
 {
-    // protected function configure()
-    // {
-    //     $this
-    //         ->setName('paymill:list')
-    //         ->setDescription('List existing resources')
-    //         ->addArgument(
-    //             'resource',
-    //             InputArgument::OPTIONAL,
-    //             'The type of resource to list (client, transaction, etc.)'
-    //         )
-    //         ->addArgument(
-    //             'filters',
-    //             InputArgument::OPTIONAL,
-    //             'Filters to apply in the form of an HTTP query string'
-    //         )
-    //     ;
-    // }
-
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return int|null|void
@@ -45,7 +26,8 @@ abstract class ListCommand extends ApiCommand
 
         $results = $this->getApi()->getAll($resource);
         if (empty($results)) {
-            $output->writeln("<comment>No results were found</comment>");
+            $output->writeln('<comment>No results were found</comment>');
+
             return;
         }
 
