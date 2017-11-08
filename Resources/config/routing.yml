@@ -1,4 +1,4 @@
 memeoirs_paymill_webhook:
-    pattern:  /paymill/hook
+    path:  /paymill/hook
     defaults: { _controller: MemeoirsPaymillBundle:Webhooks:hook }
     methods: [POST]
